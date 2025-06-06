@@ -1,0 +1,202 @@
+@extends('base')
+@section('title', $armoire ? __('dashboard.update_armoire') : __('dashboard.add_armoire'))
+@section('content')
+
+@include('global.loader')
+
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+
+    @include('main.header')
+
+    <div class="page-body-wrapper">
+
+        @include('menu.navigation-menu')
+
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <h2>{{ $armoire ? __('dashboard.update_armoire') : __('dashboard.add_armoire') }} </h2>
+                            {{--<p class="mb-0 text-muted">{{ $room->name }} </p>--}}
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('app_armoire', ['id_site' => $site->id, 'id_room' => $room->id]) }}"><i class="iconly-Bookmark icli svg-color"></i></a></li>
+                                <li class="breadcrumb-item">{{ __('dashboard.cabinets') }}</li>
+                                <li class="breadcrumb-item active">{{ $armoire ? __('dashboard.update_armoire') : __('dashboard.add_armoire') }} </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @include('message.flash-message')
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="card border tree-view">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-sitemap me-2"></i>{{ __('dashboard.tree_view') }}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="tree-structure">
+                                <div class="tree-item">
+                                    <div class="d-flex align-items-center">
+                                         <i class="fa-solid fa-city tree-icon"></i>
+                                        <strong>Site : {{ $site->name }} </strong>
+                                    </div>
+
+                                    <div class="tree-item mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-door-open tree-icon"></i>
+                                            <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
+                                        </div>
+
+                                        <div class="tree-item mt-2">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-server tree-icon"></i>
+                                                <strong>{{ __('dashboard.cabinet') }} : {{ $armoire ? $armoire->numero : "" }} </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card border">
+                        <div class="card-body">
+                            <form class="theme-form row g-3" action="{{ route('app_save_armoire') }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="request-type" value="{{ $armoire ? "edit" : "add" }}">
+                                <input type="hidden" name="id" value="{{ $armoire ? $armoire->id : "0" }}">
+                                <input type="hidden" name="id_site" value="{{ $site->id }}">
+                                <input type="hidden" name="id_room" value="{{ $room->id }}">
+
+                                <div class="col-sm-3">
+                                    <label for="armoire-number" class="form-label">{{ __('dashboard.number') }} </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control @error('armoire-number') is-invalid @enderror" name="armoire-number" id="armoire-number" placeholder="{{ __('dashboard.enter_cabinet_number_e_g_A01') }}" value="{{ $armoire ? $armoire->numero : old('armoire-number') }}">
+                                    <small class="text-danger">@error('armoire-number') {{ $message }} @enderror</small>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="armoire-description" class="form-label">Description </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control @error('armoire-description') is-invalid @enderror" name="armoire-description" id="armoire-description" placeholder="{{ __('dashboard.enter_a_description_of_the_cabinet') }}" value="{{ $armoire ? $armoire->description : old('armoire-description') }}">
+                                    <small class="text-danger">@error('armoire-description') {{ $message }} @enderror</small>
+                                </div>
+
+                                <div class="text-end">
+                                    @include('buttons.save-button')
+
+                                    @if ($armoire)
+                                        <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $armoire->id }}', '{{ route('app_delete_armoire') }}', '{{ csrf_token() }}')">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                            {{ __('dashboard.delete') }}
+                                        </button>
+                                    @endif
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3 class="mb-4">{{ __('dashboard.shelves') }} </h3>
+
+                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                @if ($armoire)
+                                    <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_etagere' => 0]) }}">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        {{ __('auth.add') }}
+                                    </a>
+                                @endif
+                            @endif
+
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>{{ __('dashboard.number') }} </th>
+                                        <th>Description </th>
+                                        <th>{{ __('dashboard.boxes') }} </th>
+                                        <th>{{ __('dashboard.binders') }} </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($etageres as $etagere)
+                                        <tr>
+                                            <td>{{ $loop->iteration }} </td>
+                                            <td>{{ $etagere->numero }} </td>
+                                            <td>{{ $etagere->description }} </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-box-archive icli"></i>
+                                                        <span class="ms-1">{{ number_format(120, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-book-open icli"></i>
+                                                        <span class="ms-1">{{ number_format(120, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <ul class="action">
+                                                    <li class="edit">
+                                                        <a href="{{ route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_etagere' => $etagere->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                    </li>
+                                                    <li class="delete">
+                                                        <a href="#" onclick="deleteElement('{{ $etagere->id }}', '{{ route('app_delete_etagere') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@include('global.scipt')
+
+<!-- sidebar -->
+<script src="{{ asset('assets/js/sidebar.js') }}"></script>
+<!-- scrollbar-->
+<script src="{{ asset('assets/js/scrollbar/simplebar.js') }}"></script>
+<script src="{{ asset('assets/js/scrollbar/custom.js') }}"></script>
+
+<!-- Sweetalert js-->
+<script src="{{ asset('assets/lib/sweet-alert/sweetalert.min.js') }}"></script>
+
+<!-- datatable-->
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<!-- page_datatable-->
+<script src="{{ asset('assets/js/js-datatables/datatables/datatable.custom.js') }}"></script>
+<!-- page_datatable-->
+<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
+
+@endsection
