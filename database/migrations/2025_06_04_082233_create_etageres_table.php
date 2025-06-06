@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('numero', 255);
             $table->string('description', 255);
-            $table->bigInteger('id_armoire')->unsigned()->index();
-            $table->foreign('id_armoire')
+            $table->bigInteger('armoire_id')->unsigned()->index();
+            $table->foreign('armoire_id')
                     ->references('id')->on('armoires')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');

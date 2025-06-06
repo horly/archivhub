@@ -80,10 +80,10 @@
                                 </div>
                                 {{ __('dashboard.boxes') }}
                             </div>
-                            <div class="stat-value">256</div>
+                            <div class="stat-value">{{ number_format($boxesCount, 0, '', ' ') }}</div>
                             <div class="stat-change">
                                 <i class="fas fa-arrow-up"></i>
-                                15 {{ __('dashboard.this_month') }}
+                                {{ number_format($boxesThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                                 <div class="col-md-3">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control search-box" id="searchInput" name="search-site" placeholder="{{ __('dashboard.search_for_a_site') }}" value="{{ request()->get('search-site') }}">
-                                        <a class="btn btn-outline-secondary" href="{{ route('app_site') }}">
+                                        <a class="btn btn-outline-secondary" href="{{ url()->current() }}">
                                             <i class="fa-solid fa-circle-xmark"></i>
                                         </a>
                                         {{--

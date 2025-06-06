@@ -45,8 +45,8 @@ class ArmoireController extends Controller
         }
         else
         {*/
-            $armoires = Armoire::where('id_room', $room->id)->paginate(8);
-            $armoiresJ = Armoire::where('id_room', $room->id)->get();
+            $armoires = Armoire::where('room_id', $room->id)->paginate(8);
+            $armoiresJ = Armoire::where('room_id', $room->id)->get();
 
             //$armoiresJson = $armoiresJ->toJson();
 
@@ -74,7 +74,7 @@ class ArmoireController extends Controller
 
         if($armoire)
         {
-            $etageres = Etagere::where('id_armoire', $armoire->id)->get();
+            $etageres = Etagere::where('armoire_id', $armoire->id)->get();
         }
 
         return view('armoire.add_armoire', compact('site', 'room', 'armoire', 'etageres'));
@@ -89,7 +89,7 @@ class ArmoireController extends Controller
             Armoire::create([
                 'numero' => $request->input('armoire-number'),
                 'description' => $request->input('armoire-description'),
-                'id_room' => $request->input('id_room'),
+                'room_id' => $request->input('id_room'),
             ]);
 
             //Notification
@@ -103,7 +103,7 @@ class ArmoireController extends Controller
                 ->update([
                     'numero' => $request->input('armoire-number'),
                     'description' => $request->input('armoire-description'),
-                    'id_room' => $request->input('id_room'),
+                    'room_id' => $request->input('id_room'),
                     'updated_at' => new \DateTimeImmutable,
             ]);
 
@@ -121,7 +121,7 @@ class ArmoireController extends Controller
     public function delete_armoire(Request $request)
     {
         $armoire = Armoire::where('id', $request->input('id_element'))->first();
-        $room = Room::where('id', $armoire->id_room)->first();
+        $room = Room::where('id', $armoire->room_id)->first();
         $site = Site::where('id', $room->site_id)->first();
 
         Armoire::where('id', $request->input('id_element'))->delete();

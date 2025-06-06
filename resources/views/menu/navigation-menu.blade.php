@@ -35,7 +35,7 @@
             </li>
             <li class="sidebar-list">
                 <i class="fa-solid fa-thumbtack"></i>
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link @if(Request::route()->getName() == "app_boite" || Request::route()->getName() == "app_add_boite") active @endif" href="{{ route('app_boite', ['id_site' => $site->id, 'id_room' => $room->id]) }}">
                     <i class="iconly-Bag-2 icli stroke-icon"></i>
                     <h6 class="f-w-600">{{ __('dashboard.boxes') }} </h6>
                 </a>

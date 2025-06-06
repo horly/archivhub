@@ -50,6 +50,7 @@ return [
 
     'rooms' => "Salles",
     'boxes' => "Boîtes",
+    'box' => "Boîte",
     'this_month' => "ce mois",
 
     'user_management' => "Gestion des utilisateurs",
@@ -130,4 +131,16 @@ return [
 
     'search_for_a_site' => "Rechercher un site",
     'search_for_a_room' => "Rechercher une salle",
+    'search_for_a_box' => "Rechercher une boîte",
+
+    'add_box' => "Ajouter une boîte",
+    'update_box' => "Modifier une boîte",
+
+    'enter_box_number_e_g_B01' => "Saisir le numéro de la boîte, par exemple B01",
+    'enter_a_description_of_the_box' => "Saisir une description de la boîte",
+    'select_the_shelve' => "Sélectionner l'étagère",
+    'please_select_the_box' => "Veuillez sélectionner la boîte",
+    'added_a_box' => "a ajouté une boîte",
+    'updated_a_box' => "a mis à jour une boîte",
+    'has_deleted_a_box' => "a supprimé une boîte",
 ];

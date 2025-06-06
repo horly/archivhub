@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArmoireController;
+use App\Http\Controllers\BoiteController;
 use App\Http\Controllers\EtagereController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -93,6 +94,17 @@ Route::controller(EtagereController::class)->group(function(){
 
         Route::post('/save_etagere', 'save_etagere')->name('app_save_etagere');
         Route::post('/delete_etagere', 'delete_etagere')->name('app_delete_etagere');
+
+    });
+});
+
+Route::controller(BoiteController::class)->group(function(){
+    Route::middleware(['auth', 'check.license'])->group(function () {
+        Route::get('/boite/{id_site:int}/{id_room:int}', 'boite')->name('app_boite');
+        Route::get('/add_boite/{id_site:int}/{id_room:int}/{id_boite:int}', 'add_boite')->name('app_add_boite');
+
+        Route::post('/save_boite', 'save_boite')->name('app_save_boite');
+        Route::post('/delete_boite', 'delete_boite')->name('app_delete_boite');
 
     });
 });

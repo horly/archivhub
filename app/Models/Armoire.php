@@ -15,12 +15,12 @@ class Armoire extends Model
     protected $fillable = [
         'numero',
         'description',
-        'id_room',
+        'room_id',
     ];
 
-    public function site()
+    public function room()
     {
-        return $this->belongsTo('App\Models\Room', 'id_room');
+        return $this->belongsTo('App\Models\Room', 'room_id');
     }
 
     public function etageres()

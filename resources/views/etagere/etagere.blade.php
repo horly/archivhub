@@ -55,7 +55,7 @@
                             <div class="col-md-3">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control search-box" id="searchInput" name="search-etagere" placeholder="{{ __('dashboard.search_for_a_cabinet') }}" value="{{ request()->get('search-etagere') }}">
-                                    <a class="btn btn-outline-secondary" href="{{ route('app_etagere', ['id_site' => $site->id, 'id_room' => $room->id]) }}">
+                                    <a class="btn btn-outline-secondary" href="{{ url()->current() }}">
                                         <i class="fa-solid fa-circle-xmark"></i>
                                     </a>
                                     {{--
@@ -89,7 +89,7 @@
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-box-archive stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(120, 0, '', ' ') }} {{ __('dashboard.boxes') }}</span>
+                                                <span>{{ number_format($etagere->boites->count(), 0, '', ' ') }} {{ __('dashboard.boxes') }}</span>
                                             </div>
                                             <div>
                                                 <i class="fa-solid fa-book-open stat-icon" style="width: 25px"></i>

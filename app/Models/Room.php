@@ -23,7 +23,7 @@ class Room extends Model
         return $this->belongsTo('App\Models\Site', 'site_id');
     }
 
-    public function armoire()
+    public function armoires()
     {
         return $this->hasMany('App\Models\Armoire');
     }

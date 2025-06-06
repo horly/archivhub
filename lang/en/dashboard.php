@@ -50,6 +50,8 @@ return [
 
     'rooms' => "Rooms",
     'boxes' => "Boxes",
+    'box' => "Box",
+
     'this_month' => "this month",
 
     'user_management' => "User management",
@@ -129,4 +131,16 @@ return [
 
     'search_for_a_site' => "Search for a site",
     'search_for_a_room' => "Search for a room",
+    'search_for_a_box' => "Search for a box",
+
+    'add_box' => "Add a box",
+    'update_box' => "Update a box",
+
+    'enter_box_number_e_g_B01' => "Enter the box number e.g. B01",
+    'enter_a_description_of_the_box' => "Enter a description of the box",
+    'select_the_shelve' => "Select the shelve",
+    'please_select_the_box' => "Please select the box",
+    'added_a_box' => "added a box",
+    'updated_a_box' => "updated a box",
+    'has_deleted_a_box' => "has deleted a box",
 ];

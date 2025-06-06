@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSiteForm;
+use App\Models\Boite;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
@@ -32,6 +33,7 @@ class SiteController extends Controller
 
         $sitesCount = Site::count();
         $roomsCount = Room::count();
+        $boxesCount = Boite::count();
 
         $notifsAll = null;
 
@@ -55,6 +57,10 @@ class SiteController extends Controller
                             ->whereYear('created_at', $currentYear)
                             ->count();
 
+        $boxesThisMonth = Boite::whereMonth('created_at', $currentMonth)
+                            ->whereYear('created_at', $currentYear)
+                            ->count();
+
         $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
 
 
@@ -67,6 +73,8 @@ class SiteController extends Controller
             'sitesCount',
             'roomsCount',
             'iSpermission',
+            'boxesCount',
+            'boxesThisMonth'
         ));
     }
 

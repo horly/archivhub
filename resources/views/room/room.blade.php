@@ -47,7 +47,7 @@
                         <div class="col-md-3">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control search-box" id="searchInput" name="search-room" placeholder="{{ __('dashboard.search_for_a_room') }}" value="{{ request()->get('search-room') }}">
-                                <a class="btn btn-outline-secondary" href="{{ route('app_site') }}">
+                                <a class="btn btn-outline-secondary" href="{{ url()->current() }}">
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </a>
                                 {{--
@@ -81,11 +81,18 @@
                                     <div class="mb-3">
                                         <div>
                                             <i class="fa-solid fa-boxes-packing stat-icon" style="width: 25px"></i>
-                                            <span>{{ number_format(14, 0, '', ' ') }} {{ __('dashboard.cabinets') }}</span>
+                                            <span>{{ number_format($room->armoires->count(), 0, '', ' ') }} {{ __('dashboard.cabinets') }}</span>
                                         </div>
+                                        @php
+                                            $boites = App\Models\Boite::select('boites.*')
+                                                        ->join('etageres', 'etageres.id', '=', 'boites.etagere_id')
+                                                        ->join('armoires', 'armoires.id', '=', 'etageres.armoire_id')
+                                                        ->where('armoires.room_id', $room->id)
+                                                        ->count();
+                                        @endphp
                                         <div>
                                             <i class="fa-solid fa-box-archive stat-icon" style="width: 25px"></i>
-                                            <span>{{ number_format(120, 0, '', ' ') }} {{ __('dashboard.boxes') }}</span>
+                                            <span>{{ number_format($boites, 0, '', ' ') }} {{ __('dashboard.boxes') }}</span>
                                         </div>
                                     </div>
                                     <div class="action-buttons">

@@ -15,12 +15,17 @@ class Etagere extends Model
     protected $fillable = [
         'numero',
         'description',
-        'id_armoire',
+        'armoire_id',
     ];
 
     public function armoire()
     {
-        return $this->belongsTo('App\Models\Armoire', 'id_armoire');
+        return $this->belongsTo('App\Models\Armoire', 'armoire_id');
+    }
+
+    public function boites()
+    {
+        return $this->hasMany('App\Models\Boite');
     }
 
 }

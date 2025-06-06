@@ -144,7 +144,7 @@
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
                                                         <i class="fa-solid fa-box-archive icli"></i>
-                                                        <span class="ms-1">{{ number_format(120, 0, '', ' ') }}</span>
+                                                        <span class="ms-1">{{ number_format($etagere->boites->count(), 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>
                                             </td>
@@ -157,14 +157,16 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <ul class="action">
-                                                    <li class="edit">
-                                                        <a href="{{ route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_etagere' => $etagere->id]) }}"><i class="icon-pencil-alt"></i></a>
-                                                    </li>
-                                                    <li class="delete">
-                                                        <a href="#" onclick="deleteElement('{{ $etagere->id }}', '{{ route('app_delete_etagere') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
-                                                    </li>
-                                                </ul>
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <ul class="action">
+                                                        <li class="edit">
+                                                            <a href="{{ route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_etagere' => $etagere->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                        </li>
+                                                        <li class="delete">
+                                                            <a href="#" onclick="deleteElement('{{ $etagere->id }}', '{{ route('app_delete_etagere') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

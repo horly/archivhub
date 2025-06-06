@@ -142,6 +142,72 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3 class="mb-4">{{ __('dashboard.boxes') }} </h3>
+
+                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                @if ($etagere)
+                                    <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_boite', ['id_site' => $site->id, 'id_room' => $room->id, 'id_boite' => 0]) }}">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        {{ __('auth.add') }}
+                                    </a>
+                                @endif
+                            @endif
+
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>{{ __('dashboard.number') }} </th>
+                                        <th>Description </th>
+                                        <th>{{ __('dashboard.binders') }} </th>
+                                        <th>{{ __('dashboard.folders') }} </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($boites as $boite)
+                                        <tr>
+                                            <td>{{ $loop->iteration }} </td>
+                                            <td>{{ $boite->numero }} </td>
+                                            <td>{{ $boite->description }} </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-box-archive icli"></i>
+                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-book-open icli"></i>
+                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <ul class="action">
+                                                        <li class="edit">
+                                                            <a href="{{ route('app_add_boite', ['id_site' => $site->id, 'id_room' => $room->id, 'id_boite' => $boite->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                        </li>
+                                                        <li class="delete">
+                                                            <a href="#" onclick="deleteElement('{{ $boite->id }}', '{{ route('app_delete_boite') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -160,5 +226,12 @@
 
 <!-- Sweetalert js-->
 <script src="{{ asset('assets/lib/sweet-alert/sweetalert.min.js') }}"></script>
+
+<!-- datatable-->
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<!-- page_datatable-->
+<script src="{{ asset('assets/js/js-datatables/datatables/datatable.custom.js') }}"></script>
+<!-- page_datatable-->
+<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
 
 @endsection

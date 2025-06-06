@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateEtagereForm;
 use App\Models\Armoire;
+use App\Models\Boite;
 use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
@@ -14,19 +15,19 @@ use Illuminate\Support\Js;
 class EtagereController extends Controller
 {
     //
-    public function etagere($id_site, $id_room, Request $request)
+    public function etagere($id_site, $id_room)
     {
         $site = Site::where('id', $id_site)->first();
         $room = Room::where('id', $id_room)->first();
 
         $etageres = Etagere::select('etageres.*')
-                    ->join('armoires', 'armoires.id', '=', 'etageres.id_armoire')
-                    ->where('armoires.id_room', $id_room)
+                    ->join('armoires', 'armoires.id', '=', 'etageres.armoire_id')
+                    ->where('armoires.room_id', $id_room)
                     ->paginate(8);
 
         $etageresJ = Etagere::select('etageres.*')
-                    ->join('armoires', 'armoires.id', '=', 'etageres.id_armoire')
-                    ->where('armoires.id_room', $id_room)
+                    ->join('armoires', 'armoires.id', '=', 'etageres.armoire_id')
+                    ->where('armoires.room_id', $id_room)
                     ->get();
 
 
@@ -35,7 +36,7 @@ class EtagereController extends Controller
                 'id' => $etagere->id,
                 'numero' => $etagere->numero,
                 'description' => $etagere->description,
-                'url' => route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_armoire' => $etagere->armoire->id, 'id_etagere' => $etagere->id]),
+                'url' => route('app_add_etagere', ['id_site' => $site->id, 'id_room' => $room->id, 'id_etagere' => $etagere->id]),
                 // Ajoutez d'autres propriétés si nécessaire
             ];
         }));
@@ -47,10 +48,17 @@ class EtagereController extends Controller
     {
         $site = Site::where('id', $id_site)->first();
         $room = Room::where('id', $id_room)->first();
-        $armoires = Armoire::where('id_room', $room->id)->get();
+        $armoires = Armoire::where('room_id', $room->id)->get();
         $etagere = Etagere::where('id', $id_etagere)->first();
 
-        return view('etagere.add_etagere', compact('site', 'room', 'etagere', 'armoires'));
+        $boites = collect();
+
+        if($etagere)
+        {
+            $boites = Boite::where('etagere_id', $etagere->id)->get();
+        }
+
+        return view('etagere.add_etagere', compact('site', 'room', 'etagere', 'armoires', 'boites'));
     }
 
 
@@ -61,7 +69,7 @@ class EtagereController extends Controller
             Etagere::create([
                 'numero' => $request->input('etagere-number'),
                 'description' => $request->input('etagere-description'),
-                'id_armoire' => $request->input('etagere-armoire'),
+                'armoire_id' => $request->input('etagere-armoire'),
             ]);
 
              //Notification
@@ -75,7 +83,7 @@ class EtagereController extends Controller
                 ->update([
                     'numero' => $request->input('etagere-number'),
                     'description' => $request->input('etagere-description'),
-                    'id_armoire' => $request->input('etagere-armoire'),
+                    'armoire_id' => $request->input('etagere-armoire'),
                     'updated_at' => new \DateTimeImmutable,
             ]);
 
@@ -93,7 +101,7 @@ class EtagereController extends Controller
     public function delete_etagere(Request $request)
     {
         $etagere = Etagere::where('id', $request->input('id_element'))->first();
-        $room = Room::where('id', $etagere->armoire->id_room)->first();
+        $room = Room::where('id', $etagere->armoire->room_id)->first();
         $site = Site::where('id', $room->site_id)->first();
 
         Etagere::where('id', $request->input('id_element'))->delete();
