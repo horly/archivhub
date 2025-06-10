@@ -88,7 +88,7 @@
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-book-open stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(120, 0, '', ' ') }} {{ __('dashboard.binders') }}</span>
+                                                <span>{{ number_format($boite->classeurs->count(), 0, '', ' ') }} {{ __('dashboard.binders') }}</span>
                                             </div>
                                             <div>
                                                 <i class="fa-solid fa-folder stat-icon" style="width: 25px"></i>
@@ -98,7 +98,7 @@
                                         <div class="action-buttons">
                                             <a href="{{ route('app_add_boite', ['id_site' => $site->id, 'id_room' => $room->id, 'id_boite' => $boite->id]) }}" role="button" class="btn btn-primary text-white view-link fw-bold">
                                                 <i class="iconly-Show icli"></i>
-                                                {{ __('dashboard.see_boxes') }}
+                                                {{ __('dashboard.see_binders') }}
                                             </a>
                                             @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
                                                 <div>

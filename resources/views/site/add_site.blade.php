@@ -54,13 +54,15 @@
                     </div>
 
                     <div class="text-end">
-                        @include('buttons.save-button')
+                        @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                            @include('buttons.save-button')
 
-                        @if ($site)
-                            <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $site->id }}', '{{ route('app_delete_site') }}', '{{ csrf_token() }}')">
-                                <i class="fa-solid fa-trash-can"></i>
-                                {{ __('dashboard.delete') }}
-                            </button>
+                            @if ($site)
+                                <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $site->id }}', '{{ route('app_delete_site') }}', '{{ csrf_token() }}')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    {{ __('dashboard.delete') }}
+                                </button>
+                            @endif
                         @endif
                     </div>
 

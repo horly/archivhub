@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBoiteForm;
 use App\Models\Boite;
+use App\Models\Classeur;
 use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
@@ -55,7 +56,14 @@ class BoiteController extends Controller
 
         $boite = Boite::where('id', $id_boite)->first();
 
-        return view('boite.add_boite', compact('site', 'room', 'boite', 'etageres'));
+        $classeurs = collect();
+
+        if($boite)
+        {
+            $classeurs = Classeur::where('boite_id', $boite->id)->get();
+        }
+
+        return view('boite.add_boite', compact('site', 'room', 'boite', 'etageres', 'classeurs'));
     }
 
     public function save_boite(CreateBoiteForm $request)

@@ -96,13 +96,15 @@
                                 </div>
 
                                 <div class="text-end">
-                                    @include('buttons.save-button')
+                                    @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                        @include('buttons.save-button')
 
-                                    @if ($armoire)
-                                        <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $armoire->id }}', '{{ route('app_delete_armoire') }}', '{{ csrf_token() }}')">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                            {{ __('dashboard.delete') }}
-                                        </button>
+                                        @if ($armoire)
+                                            <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $armoire->id }}', '{{ route('app_delete_armoire') }}', '{{ csrf_token() }}')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                                {{ __('dashboard.delete') }}
+                                            </button>
+                                        @endif
                                     @endif
                                 </div>
 
@@ -149,10 +151,16 @@
                                                 </span>
                                             </td>
                                             <td>
+                                                @php
+                                                    $classeurs = App\Models\Classeur::select('classeurs.*')
+                                                            ->join('boites', 'boites.id', '=', 'classeurs.boite_id')
+                                                            ->where('boites.etagere_id', $etagere->id)
+                                                            ->count();
+                                                @endphp
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
                                                         <i class="fa-solid fa-book-open icli"></i>
-                                                        <span class="ms-1">{{ number_format(120, 0, '', ' ') }}</span>
+                                                        <span class="ms-1">{{ number_format($classeurs, 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>
                                             </td>

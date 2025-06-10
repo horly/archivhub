@@ -109,6 +109,9 @@ return [
 
     'see_shelves' => "See shelves",
     'see_boxes' => "See boxes",
+    'see_binders' => "See binders",
+    'see_folders' => "See folders",
+    'see_documents' => "See documents",
     'room' => "Room",
     'tree_view' => "Tree view",
     'no_data_available' => "No data available",
@@ -143,4 +146,26 @@ return [
     'added_a_box' => "added a box",
     'updated_a_box' => "updated a box",
     'has_deleted_a_box' => "has deleted a box",
+
+    'search_for_a_binder' => "Search for a binder",
+    'add_binder' => "Add binder",
+    'update_binder' => "Update binder",
+    'enter_binder_number_e_g_B01' => "Enter the binder number e.g. B01",
+    'enter_a_description_of_the_binder' => "Enter a description of the binder",
+    'select_the_box' => "Select the box",
+    'please_select_the_binder' => "Please select the binder",
+    'added_a_binder' => "added a binder",
+    'updated_a_binder' => "updated a binder",
+    'has_deleted_a_binder' => "has deleted a binder",
+    'search_for_a_folder' => "Search for a folder",
+
+    'add_folder' => "Add a folder",
+    'update_folder' => "Update a folder",
+    'enter_folder_number_e_g_F01' => "Enter the folder number e.g. F01",
+    'enter_a_description_of_the_folder' => "Enter a description of the folder",
+    'select_the_binder' => "Select the binder",
+
+    'added_a_folder' => "added a folder",
+    'updated_a_folder' => "updated a folder",
+    'has_deleted_a_folder' => "has deleted a folder",
 ];

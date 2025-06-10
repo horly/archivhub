@@ -129,13 +129,15 @@
                                 </div>
 
                                 <div class="text-end">
-                                    @include('buttons.save-button')
+                                    @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                        @include('buttons.save-button')
 
-                                    @if ($etagere)
-                                        <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $etagere->id }}', '{{ route('app_delete_etagere') }}', '{{ csrf_token() }}')">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                            {{ __('dashboard.delete') }}
-                                        </button>
+                                        @if ($etagere)
+                                            <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $etagere->id }}', '{{ route('app_delete_etagere') }}', '{{ csrf_token() }}')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                                {{ __('dashboard.delete') }}
+                                            </button>
+                                        @endif
                                     @endif
                                 </div>
 
@@ -176,15 +178,15 @@
                                             <td>
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
-                                                        <i class="fa-solid fa-box-archive icli"></i>
-                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                        <i class="fa-solid fa-book-open icli"></i>
+                                                        <span class="ms-1">{{ number_format($boite->classeurs->count(), 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
-                                                        <i class="fa-solid fa-book-open icli"></i>
+                                                        <i class="fa-solid fa-folder icli"></i>
                                                         <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>

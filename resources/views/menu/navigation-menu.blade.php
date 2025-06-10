@@ -42,16 +42,16 @@
             </li>
             <li class="sidebar-list">
                 <i class="fa-solid fa-thumbtack"></i>
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link @if(Request::route()->getName() == "app_classeur" || Request::route()->getName() == "app_add_classeur") active @endif" href="{{ route('app_classeur', ['id_site' => $site->id, 'id_room' => $room->id]) }}">
                     <i class="iconly-Category icli stroke-icon"></i>
-                    <h6 class="f-w-600">{{ __('dashboard.binder') }} </h6>
+                    <h6 class="f-w-600">{{ __('dashboard.binders') }} </h6>
                 </a>
             </li>
             <li class="sidebar-list">
                 <i class="fa-solid fa-thumbtack"></i>
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link @if(Request::route()->getName() == "app_chemise" || Request::route()->getName() == "app_add_chemise") active @endif" href="{{ route('app_chemise', ['id_site' => $site->id, 'id_room' => $room->id]) }}">
                     <i class="iconly-Folder icli stroke-icon"></i>
-                    <h6 class="f-w-600">{{ __('dashboard.folder') }} </h6>
+                    <h6 class="f-w-600">{{ __('dashboard.folders') }} </h6>
                 </a>
             </li>
              <li class="sidebar-list">

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Boite extends Model
 {
     //
-    //
     use HasFactory;
 
     protected $table = "boites";
@@ -22,5 +21,10 @@ class Boite extends Model
     public function etagere()
     {
         return $this->belongsTo('App\Models\Etagere', 'etagere_id');
+    }
+
+    public function classeurs()
+    {
+        return $this->hasMany('App\Models\Classeur');
     }
 }

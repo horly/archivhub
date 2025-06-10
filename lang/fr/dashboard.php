@@ -90,8 +90,8 @@ return [
 
     'binder' => "Classeur",
     'binders' => "Classeurs",
-    'folder' => "Chemise",
-    'folders' => "Chemises",
+    'folder' => "Dossier",
+    'folders' => "Dossiers",
 
     'add_armoire' => "Ajouter une armoire",
     'update_armoire' => "Modifier une armoire",
@@ -108,6 +108,9 @@ return [
 
     'see_shelves' => "Voir les étagères",
     'see_boxes' => "Voir les boîtes",
+    'see_binders' => "Voir les classeurs",
+    'see_folders' => "Voir les dossiers",
+    'see_documents' => "Voir les documents",
     'room' => "Salle",
     'tree_view' => "Vue arborescente",
     'no_data_available' => "Pas de données disponibles",
@@ -143,4 +146,26 @@ return [
     'added_a_box' => "a ajouté une boîte",
     'updated_a_box' => "a mis à jour une boîte",
     'has_deleted_a_box' => "a supprimé une boîte",
+
+    'search_for_a_binder' => "Rechercher un classeur",
+    'add_binder' => "Ajouter un classeur",
+    'update_binder' => "Modifier un classeur",
+    'enter_binder_number_e_g_B01' => "Saisir le numéro du classeur, par exemple B01",
+    'enter_a_description_of_the_binder' => "Saisir une description du classeur",
+    'select_the_box' => "Sélectionner la boîte",
+    'please_select_the_binder' => "Veuillez sélectionner le classeur",
+    'added_a_binder' => "a ajouté un classeur",
+    'updated_a_binder' => "a mis à jour un classeur",
+    'has_deleted_a_binder' => "a supprimé un classeur",
+    'search_for_a_folder' => "Chercher un dossier",
+
+    'add_folder' => "Ajouter un dossier",
+    'update_folder' => "Modifier un dossier",
+    'enter_folder_number_e_g_F01' => "Saisir le numéro du dossier, par exemple F01",
+    'enter_a_description_of_the_folder' => "Saisir une description du dossier",
+    'select_the_binder' => "Sélectionner le classeur",
+
+    'added_a_folder' => "a ajouté un dossier",
+    'updated_a_folder' => "a mis à jour un dossier",
+    'has_deleted_a_folder' => "a supprimé un dossier",
 ];

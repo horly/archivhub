@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArmoireController;
 use App\Http\Controllers\BoiteController;
+use App\Http\Controllers\ChemiseController;
+use App\Http\Controllers\ClasseurController;
 use App\Http\Controllers\EtagereController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -105,6 +107,28 @@ Route::controller(BoiteController::class)->group(function(){
 
         Route::post('/save_boite', 'save_boite')->name('app_save_boite');
         Route::post('/delete_boite', 'delete_boite')->name('app_delete_boite');
+
+    });
+});
+
+Route::controller(ClasseurController::class)->group(function(){
+    Route::middleware(['auth', 'check.license'])->group(function () {
+        Route::get('/classeur/{id_site:int}/{id_room:int}', 'classeur')->name('app_classeur');
+        Route::get('/add_classeur/{id_site:int}/{id_room:int}/{id_classeur:int}', 'add_classeur')->name('app_add_classeur');
+
+        Route::post('/save_classeur', 'save_classeur')->name('app_save_classeur');
+        Route::post('/delete_classeur', 'delete_classeur')->name('app_delete_classeur');
+
+    });
+});
+
+Route::controller(ChemiseController::class)->group(function(){
+    Route::middleware(['auth', 'check.license'])->group(function () {
+        Route::get('/chemise/{id_site:int}/{id_room:int}', 'chemise')->name('app_chemise');
+        Route::get('/add_chemise/{id_site:int}/{id_room:int}/{id_chemise:int}', 'add_chemise')->name('app_add_chemise');
+
+        Route::post('/save_chemise', 'save_chemise')->name('app_save_chemise');
+        Route::post('/delete_chemise', 'delete_chemise')->name('app_delete_chemise');
 
     });
 });

@@ -139,17 +139,85 @@
                                 </div>
 
                                 <div class="text-end">
-                                    @include('buttons.save-button')
+                                    @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                        @include('buttons.save-button')
 
-                                    @if ($boite)
-                                        <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $boite->id }}', '{{ route('app_delete_boite') }}', '{{ csrf_token() }}')">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                            {{ __('dashboard.delete') }}
-                                        </button>
+                                        @if ($boite)
+                                            <button class="btn btn-danger btn-air-light" type="button" onclick="deleteElement('{{ $boite->id }}', '{{ route('app_delete_boite') }}', '{{ csrf_token() }}')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                                {{ __('dashboard.delete') }}
+                                            </button>
+                                        @endif
                                     @endif
                                 </div>
 
                             </form>
+                        </div>
+                    </div>
+
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3 class="mb-4">{{ __('dashboard.binders') }} </h3>
+
+                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                @if ($etagere)
+                                    <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_classeur', ['id_site' => $site->id, 'id_room' => $room->id, 'id_classeur' => 0]) }}">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        {{ __('auth.add') }}
+                                    </a>
+                                @endif
+                            @endif
+
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>{{ __('dashboard.number') }} </th>
+                                        <th>Description </th>
+                                        <th>{{ __('dashboard.folders') }} </th>
+                                        <th>Documents </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($classeurs as $classeur)
+                                        <tr>
+                                            <td>{{ $loop->iteration }} </td>
+                                            <td>{{ $classeur->numero }} </td>
+                                            <td>{{ $classeur->description }} </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-folder icli"></i>
+                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-file-lines icli"></i>
+                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <ul class="action">
+                                                        <li class="edit">
+                                                            <a href="{{ route('app_add_classeur', ['id_site' => $site->id, 'id_room' => $room->id, 'id_classeur' => $boite->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                        </li>
+                                                        <li class="delete">
+                                                            <a href="#" onclick="deleteElement('{{ $classeur->id }}', '{{ route('app_delete_classeur') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
