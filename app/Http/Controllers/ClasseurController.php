@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateClasseurForm;
 use App\Models\Boite;
+use App\Models\Chemise;
 use App\Models\Classeur;
 use App\Models\Etagere;
 use App\Models\Room;
@@ -60,7 +61,14 @@ class ClasseurController extends Controller
 
         $classeur = Classeur::where('id', $id_classeur)->first();
 
-        return view('classeur.add_classeur', compact('site', 'room', 'classeur', 'boites'));
+        $chemises = collect(); //Dossiers
+
+        if($classeur)
+        {
+            $chemises = Chemise::where('classeur_id', $classeur->id)->get();
+        }
+
+        return view('classeur.add_classeur', compact('site', 'room', 'classeur', 'boites', 'chemises'));
     }
 
     public function save_classeur(CreateClasseurForm $request)

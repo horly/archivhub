@@ -88,7 +88,7 @@
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-file-lines stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(14, 0, '', ' ') }} Documents</span>
+                                                <span>{{ number_format($chemise->documents->count(), 0, '', ' ') }} Documents</span>
                                             </div>
                                         </div>
                                         <div class="action-buttons">

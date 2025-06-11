@@ -1,12 +1,16 @@
 (function ($) {
   "use strict";
 
+    const siteDataApex = window.sitesJsonApex || [];
+    const categories = siteDataApex.map(site => site.name);
+    const documentCounts = siteDataApex.map(site => site.document_count);
+
   // column chart
   var optionscolumnchart = {
     series: [
       {
-        name: "Cash Flow",
-        data: [85, 55, 100],
+        name: "Documents",
+        data: documentCounts,
       },
     ],
     chart: {
@@ -34,7 +38,7 @@
       lineCap: "butt",
     },
     xaxis: {
-      categories: ["Matadi", "Kinshasa", "Lubumbashi"],
+      categories: categories,
       floating: false,
       axisTicks: {
         show: false,
@@ -69,7 +73,7 @@
     tooltip: {
       y: {
         formatter: function (val) {
-          return "$ " + val + " thousands";
+          return val;
         },
       },
     },

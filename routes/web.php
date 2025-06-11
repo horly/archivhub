@@ -4,6 +4,7 @@ use App\Http\Controllers\ArmoireController;
 use App\Http\Controllers\BoiteController;
 use App\Http\Controllers\ChemiseController;
 use App\Http\Controllers\ClasseurController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EtagereController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -129,6 +130,17 @@ Route::controller(ChemiseController::class)->group(function(){
 
         Route::post('/save_chemise', 'save_chemise')->name('app_save_chemise');
         Route::post('/delete_chemise', 'delete_chemise')->name('app_delete_chemise');
+
+    });
+});
+
+Route::controller(DocumentController::class)->group(function(){
+    Route::middleware(['auth', 'check.license'])->group(function () {
+        Route::get('/document/{id_site:int}/{id_room:int}', 'document')->name('app_document');
+        Route::get('/add_document/{id_site:int}/{id_room:int}/{id_document:int}', 'add_document')->name('app_add_document');
+
+        Route::post('/save_document', 'save_document')->name('app_save_document');
+        Route::post('/delete_document', 'delete_document')->name('app_delete_document');
 
     });
 });

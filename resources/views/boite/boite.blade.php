@@ -90,9 +90,15 @@
                                                 <i class="fa-solid fa-book-open stat-icon" style="width: 25px"></i>
                                                 <span>{{ number_format($boite->classeurs->count(), 0, '', ' ') }} {{ __('dashboard.binders') }}</span>
                                             </div>
+                                            @php
+                                                $chemises = App\Models\Chemise::select('chemises.*')
+                                                        ->join('classeurs', 'classeurs.id', '=', 'chemises.classeur_id')
+                                                        ->where('classeurs.boite_id', $boite->id)
+                                                        ->count();
+                                            @endphp
                                             <div>
                                                 <i class="fa-solid fa-folder stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(14, 0, '', ' ') }} {{ __('dashboard.folders') }}</span>
+                                                <span>{{ number_format($chemises, 0, '', ' ') }} {{ __('dashboard.folders') }}</span>
                                             </div>
                                         </div>
                                         <div class="action-buttons">

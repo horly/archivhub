@@ -93,10 +93,10 @@
                                         </div>
                                         Documents
                                     </div>
-                                    <div class="stat-value">3,842</div>
+                                    <div class="stat-value">{{ number_format($documentsCount, 0, '', ' ') }}</div>
                                     <div class="stat-change">
                                         <i class="fas fa-arrow-up"></i>
-                                        124 {{ __('dashboard.this_month') }}
+                                        {{ number_format($documentsThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                                     </div>
                                 </div>
                             </div>
@@ -158,9 +158,20 @@
                                                             <i class="fas fa-door-open stat-icon" style="width: 25px"></i>
                                                             <span>{{ number_format($site->rooms->count(), 0, '', ' ') }} {{ __('dashboard.rooms') }}</span>
                                                         </div>
+                                                        @php
+                                                            $documents = App\Models\Document::select('documents.*')
+                                                                    ->join('chemises', 'chemises.id', '=', 'documents.chemise_id')
+                                                                    ->join('classeurs', 'classeurs.id', '=', 'chemises.classeur_id')
+                                                                    ->join('boites', 'boites.id', '=', 'classeurs.boite_id')
+                                                                    ->join('etageres', 'etageres.id', '=', 'boites.etagere_id')
+                                                                    ->join('armoires', 'armoires.id', '=', 'etageres.armoire_id')
+                                                                    ->join('rooms', 'rooms.id', '=', 'armoires.room_id')
+                                                                    ->where('rooms.site_id', $site->id)
+                                                                    ->count();
+                                                        @endphp
                                                         <div>
                                                             <i class="fas fa-file-alt stat-icon" style="width: 25px"></i>
-                                                            <span>{{ number_format(1620, 0, '', ' ') }} documents</span>
+                                                            <span>{{ number_format($documents, 0, '', ' ') }} documents</span>
                                                         </div>
                                                     </div>
                                                     <div class="action-buttons">
@@ -238,6 +249,11 @@
 
 @include('global.scipt')
 
+<script>
+    window.jsonData = {!! $sitesJson !!};
+    window.jsonDataApex = {!! $sitesJsonApex !!};
+</script>
+
 <!-- datatable-->
 <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
 <!-- page_datatable-->
@@ -254,10 +270,6 @@
 <!-- chart_widget-->
 {{-- <script src="{{ asset('assets/js/chart-widget.js') }}"></script>--}}
 <script src="{{ asset('assets/js/custom/chart.js') }}"></script>
-
-<script>
-    window.jsonData = {!! $sitesJson !!};
-</script>
 
 <script src="{{ asset('assets/js/custom/site.js') }}"></script>
 

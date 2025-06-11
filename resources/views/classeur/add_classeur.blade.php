@@ -160,6 +160,63 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3 class="mb-4">{{ __('dashboard.folders') }} </h3>
+
+                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                @if ($classeur)
+                                    <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_chemise', ['id_site' => $site->id, 'id_room' => $room->id, 'id_chemise' => 0]) }}">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        {{ __('auth.add') }}
+                                    </a>
+                                @endif
+                            @endif
+
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>{{ __('dashboard.number') }} </th>
+                                        <th>Description </th>
+                                        <th>Documents </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($chemises as $chemise)
+                                        <tr>
+                                            <td>{{ $loop->iteration }} </td>
+                                            <td>{{ $chemise->numero }} </td>
+                                            <td>{{ $chemise->description }} </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <i class="fa-solid fa-file-lines icli"></i>
+                                                        <span class="ms-1">{{ number_format($chemise->documents->count(), 0, '', ' ') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <ul class="action">
+                                                        <li class="edit">
+                                                            <a href="{{ route('app_add_chemise', ['id_site' => $site->id, 'id_room' => $room->id, 'id_chemise' => $chemise->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                        </li>
+                                                        <li class="delete">
+                                                            <a href="#" onclick="deleteElement('{{ $chemise->id }}', '{{ route('app_delete_chemise') }}', '{{ csrf_token() }}')"><i class="icon-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

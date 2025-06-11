@@ -184,10 +184,16 @@
                                                 </span>
                                             </td>
                                             <td>
+                                                @php
+                                                    $chemises = App\Models\Chemise::select('chemises.*')
+                                                            ->join('classeurs', 'classeurs.id', '=', 'chemises.classeur_id')
+                                                            ->where('classeurs.boite_id', $boite->id)
+                                                            ->count();
+                                                @endphp
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
                                                         <i class="fa-solid fa-folder icli"></i>
-                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                        <span class="ms-1">{{ number_format($chemises, 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>
                                             </td>

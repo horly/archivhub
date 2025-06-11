@@ -88,11 +88,17 @@
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-folder stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(120, 0, '', ' ') }} {{ __('dashboard.folders') }}</span>
+                                                <span>{{ number_format($classeur->chemises->count(), 0, '', ' ') }} {{ __('dashboard.folders') }}</span>
                                             </div>
+                                            @php
+                                                $documents = App\Models\Document::select('documents.*')
+                                                        ->join('chemises', 'chemises.id', '=', 'documents.chemise_id')
+                                                        ->where('chemises.classeur_id', $classeur->id)
+                                                        ->count();
+                                            @endphp
                                             <div>
                                                 <i class="fa-solid fa-file-lines stat-icon" style="width: 25px"></i>
-                                                <span>{{ number_format(14, 0, '', ' ') }} Documents</span>
+                                                <span>{{ number_format($documents, 0, '', ' ') }} Documents</span>
                                             </div>
                                         </div>
                                         <div class="action-buttons">

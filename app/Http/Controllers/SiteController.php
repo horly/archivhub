@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSiteForm;
 use App\Models\Boite;
+use App\Models\Document;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
@@ -34,6 +35,7 @@ class SiteController extends Controller
         $sitesCount = Site::count();
         $roomsCount = Room::count();
         $boxesCount = Boite::count();
+        $documentsCount = Document::count();
 
         $notifsAll = null;
 
@@ -61,7 +63,34 @@ class SiteController extends Controller
                             ->whereYear('created_at', $currentYear)
                             ->count();
 
+        $documentsThisMonth = Document::whereMonth('created_at', $currentMonth)
+                            ->whereYear('created_at', $currentYear)
+                            ->count();
+
         $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        $documentCounts = DB::table('sites')
+                            ->leftJoin('rooms', 'rooms.site_id', '=', 'sites.id')
+                            ->leftJoin('armoires', 'armoires.room_id', '=', 'rooms.id')
+                            ->leftJoin('etageres', 'etageres.armoire_id', '=', 'armoires.id')
+                            ->leftJoin('boites', 'boites.etagere_id', '=', 'etageres.id')
+                            ->leftJoin('classeurs', 'classeurs.boite_id', '=', 'boites.id')
+                            ->leftJoin('chemises', 'chemises.classeur_id', '=', 'classeurs.id')
+                            ->leftJoin('documents', 'documents.chemise_id', '=', 'chemises.id')
+                            ->select('sites.id', DB::raw('COUNT(documents.id) as document_count'))
+                            ->groupBy('sites.id')
+                            ->pluck('document_count', 'sites.id');
+
+        $sitesApex = Site::all()->map(function ($site) use ($documentCounts) {
+            return [
+                'id' => $site->id,
+                'name' => $site->name,
+                'address' => $site->address,
+                'document_count' => $documentCounts[$site->id] ?? 0,
+            ];
+        });
+
+        $sitesJsonApex = Js::from($sitesApex);
 
 
         return view('site.site', compact(
@@ -74,7 +103,10 @@ class SiteController extends Controller
             'roomsCount',
             'iSpermission',
             'boxesCount',
-            'boxesThisMonth'
+            'boxesThisMonth',
+            'documentsCount',
+            'documentsThisMonth',
+            'sitesJsonApex'
         ));
     }
 

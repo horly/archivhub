@@ -22,4 +22,9 @@ class Chemise extends Model
     {
         return $this->belongsTo('App\Models\Classeur', 'classeur_id');
     }
+
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document');
+    }
 }

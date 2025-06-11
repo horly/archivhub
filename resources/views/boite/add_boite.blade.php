@@ -189,7 +189,7 @@
                                                 <span class="badge rounded-pill badge-light-primary">
                                                     <span class="d-flex">
                                                         <i class="fa-solid fa-folder icli"></i>
-                                                        <span class="ms-1">{{ number_format(0, 0, '', ' ') }}</span>
+                                                        <span class="ms-1">{{ number_format($classeur->chemises->count(), 0, '', ' ') }}</span>
                                                     </span>
                                                 </span>
                                             </td>
