@@ -114,7 +114,9 @@ class SiteController extends Controller
     {
         $site = Site::where('id', $id)->first();
 
-        return view('site.add_site', compact('site'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('site.add_site', compact('site', 'iSpermission'));
     }
 
     public function save_site(CreateSiteForm $request)

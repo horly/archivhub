@@ -10,7 +10,9 @@ use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Js;
 
 class ClasseurController extends Controller
@@ -45,7 +47,9 @@ class ClasseurController extends Controller
             ];
         }));
 
-        return view('classeur.classeur', compact('site', 'room', 'classeurs', 'classeursJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('classeur.classeur', compact('site', 'room', 'classeurs', 'classeursJson', 'iSpermission'));
     }
 
     public function add_classeur($id_site, $id_room, $id_classeur)
@@ -68,7 +72,9 @@ class ClasseurController extends Controller
             $chemises = Chemise::where('classeur_id', $classeur->id)->get();
         }
 
-        return view('classeur.add_classeur', compact('site', 'room', 'classeur', 'boites', 'chemises'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('classeur.add_classeur', compact('site', 'room', 'classeur', 'boites', 'chemises', 'iSpermission'));
     }
 
     public function save_classeur(CreateClasseurForm $request)

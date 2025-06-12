@@ -9,7 +9,9 @@ use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Js;
 
 class EtagereController extends Controller
@@ -41,7 +43,9 @@ class EtagereController extends Controller
             ];
         }));
 
-        return view('etagere.etagere', compact('site', 'room', 'etageres', 'etageresJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('etagere.etagere', compact('site', 'room', 'etageres', 'etageresJson', 'iSpermission'));
     }
 
     public function add_etagere($id_site, $id_room, $id_etagere)
@@ -58,7 +62,9 @@ class EtagereController extends Controller
             $boites = Boite::where('etagere_id', $etagere->id)->get();
         }
 
-        return view('etagere.add_etagere', compact('site', 'room', 'etagere', 'armoires', 'boites'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('etagere.add_etagere', compact('site', 'room', 'etagere', 'armoires', 'boites', 'iSpermission'));
     }
 
 

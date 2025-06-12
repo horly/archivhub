@@ -106,6 +106,70 @@
                 </div>
 
                 <div class="col-md-9">
+                    @if ($document)
+                        <div class="file-content">
+                            <div class="card border">
+                                <div class="card-body file-manager">
+                                    <h4 class="mb-3">{{ __('dashboard.upload_a_document') }} </h4>
+
+                                    <form class="mb-4 row" id="upload_pdf_document" method="POST" action="{{ route('app_upload_pdf_document') }}" token="{{ csrf_token() }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="id-document" value="{{ $document->id }}">
+                                        <input type="hidden" name="id_site" value="{{ $site->id }}">
+                                        <input type="hidden" name="id_room" value="{{ $room->id }}">
+
+                                        <input type="hidden" name="file-message" id="file-message" value="{{ __('dashboard.please_select_a_file') }}">
+                                        <input type="hidden" name="file-message-pdf-extension" id="file-message-pdf-extension" value="{{ __('dashboard.only_PDF_files_are_allowed') }}">
+                                        <input type="hidden" name="file-size" id="file-size" value="{{ __('dashboard.file_must_not_exceed') }}">
+
+                                        <label for="file-add" class="col-sm-3 col-form-label">{{ __('dashboard.add_a_file') }}</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <input class="form-control" type="file" id="file-add" name="file_add" accept=".pdf">
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <button class="btn btn-primary btn-file" type="submit" id="button-addon2">
+                                                        <i class="fa-solid fa-floppy-disk"></i>
+                                                    </button>
+                                                    <button class="btn btn-primary btn-loading-file d-none" type="button" disabled>
+                                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                            <small class="text-danger" id="file-add-error"></small>
+
+                                            <div class="progress mt-3" id="zone-progress-bar-purchase" hidden>
+                                                <div class="progress-bar bg-success" role="progressbar" id="progress-bar-purchase" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    @if ($document->lien_numerisation)
+                                        <ul class="d-flex flex-row files-content mb-3">
+                                            <li class="folder-box d-flex align-items-center">
+                                                <div class="d-flex align-items-center files-list">
+                                                    <a href="#" class="flex-shrink-0 file-left" data-bs-toggle="modal" data-bs-target="#overview-document"><i class="fa-solid fa-file-pdf text-danger fs-4"></i></a>
+                                                    <div class="flex-grow-1 ms-3">
+                                                    <a href="#" class="f-w-600 h5 text-primary" data-bs-toggle="modal" data-bs-target="#overview-document">{{ $document->titre . '.pdf' }} </a>
+                                                    <p>{{ Carbon\Carbon::parse($document->updated_at)->ago() }}, {{ $size_human }}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <div class="alert alert-light-primary" role="alert">
+                                            <p class="text-primary"><i class="fa-solid fa-file-zipper"></i> {{ __('dashboard.archived_document') }}  </p>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-light-warning" role="alert">
+                                            <p class="text-warning"><i class="fa-solid fa-file"></i> {{ __('dashboard.draft_document') }}  </p>
+                                        </div>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="card border">
                         <div class="card-body">
                             <form class="theme-form row g-3" action="{{ route('app_save_document') }}" method="POST">
@@ -245,6 +309,30 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="overview-document" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"> </h1>{{ __('dashboard.document_preview') }}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if ($document && $document->lien_numerisation)
+                    <object data="{{ asset('assets/documents') }}/{{ $document->id }}.pdf" type="application/pdf" width="100%" height="600px">
+                        <div class="alert alert-warning text-center" role="alert">
+                            <i class="fa-regular fa-file"></i> {{ __('dashboard.no_preview_available') }}
+                        </div>
+                    </object>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-circle-xmark"></i> {{ __('dashboard.close') }} </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @include('global.scipt')
 
 <!-- sidebar -->
@@ -262,5 +350,9 @@
 <script src="{{ asset('assets/js/js-datatables/datatables/datatable.custom.js') }}"></script>
 <!-- page_datatable-->
 <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
+
+ <script src="{{ asset('assets/lib/jqueryForm/jqueryForm.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/custom/document.js') }}"></script>
 
 @endsection

@@ -10,7 +10,9 @@ use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Js;
 
 class ChemiseController extends Controller
@@ -47,7 +49,9 @@ class ChemiseController extends Controller
             ];
         }));
 
-        return view('chemise.chemise', compact('site', 'room', 'chemises', 'chemisesJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('chemise.chemise', compact('site', 'room', 'chemises', 'chemisesJson', 'iSpermission'));
     }
 
     public function add_chemise($id_site, $id_room, $id_chemise)
@@ -64,7 +68,9 @@ class ChemiseController extends Controller
 
         $chemise = Chemise::where('id', $id_chemise)->first();
 
-        return view('chemise.add_chemise', compact('site', 'room', 'chemise', 'classeurs'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('chemise.add_chemise', compact('site', 'room', 'chemise', 'classeurs', 'iSpermission'));
     }
 
     public function save_chemise(CreateChemiseForm $request)

@@ -195,4 +195,14 @@ return [
     'please_select_the_folder' => "Veuillez sélectionner le dossier",
     'added_a_document' => "a ajouté un document",
     'updated_a_document' =>  "a mis à jour un document",
+
+    'upload_a_document' => "Charger un document",
+    'please_select_a_file' => "Veuillez sélectionner un fichier",
+    'file_must_not_exceed' => "Le fichier ne doit pas dépasser",
+    'add_a_file' => "Ajouter un fichier",
+    'archived_document' => "Document archivé",
+    'draft_document' => "Document brouillon",
+    'document_preview' => "Prévisualisation du document",
+    'no_preview_available' => "Aucun aperçu disponible",
+    'only_PDF_files_are_allowed' => "Seuls les fichiers PDF sont autorisés",
 ];

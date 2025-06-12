@@ -8,7 +8,10 @@ use App\Models\Document;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Js;
 
 class DocumentController extends Controller
@@ -49,7 +52,9 @@ class DocumentController extends Controller
             ];
         }));
 
-        return view('document.document', compact('site', 'room', 'documents', 'documentsJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('document.document', compact('site', 'room', 'documents', 'documentsJson', 'iSpermission'));
     }
 
     public function add_document($id_site, $id_room, $id_document)
@@ -67,7 +72,40 @@ class DocumentController extends Controller
 
         $document = Document::where('id', $id_document)->first();
 
-        return view('document.add_document', compact('site', 'room', 'document', 'chemises'));
+        $filePath = null;
+        $fileSize = null;
+        $size_human = null;
+
+        if($document)
+        {
+            $filePath = public_path('assets/documents/' . $document->id . '.pdf');
+
+            if(File::exists($filePath))
+            {
+                $fileSize = File::size($filePath);
+                $size_human = $this->formatSize($fileSize);
+            }
+            else
+            {
+                $fileSize = 0;
+                $size_human = $fileSize;
+            }
+        }
+
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('document.add_document', compact('site', 'room', 'document', 'chemises', 'size_human', 'iSpermission'));
+    }
+
+    private function formatSize(int $bytes): string
+    {
+        $units = ['o', 'Ko', 'Mo', 'Go', 'To'];
+
+        for ($i = 0; $bytes >= 1024 && $i < count($units) - 1; $i++) {
+            $bytes /= 1024;
+        }
+
+        return round($bytes, 2) . ' ' . $units[$i];
     }
 
     public function save_document(CreateDocumentForm $request)
@@ -114,5 +152,41 @@ class DocumentController extends Controller
             'id_room' => $request->input('id_room'),
             'id_document' => $request->input('request-type') != "edit" ? $document->id : $request->input('id')])
                 ->with('success', __('dashboard.data_saved_successfully'));
+    }
+
+    public function upload_pdf_document(Request $request)
+    {
+        $id_document =  $request->input('id-document');
+        $file = $id_document . '.' . $request->file_add->getClientOriginalExtension();
+
+        //$this->request->file_purchase->move(base_path() . '/public_html/assets/img/purchase/', $file);
+
+        $public_path = public_path();
+
+        $path = $public_path . '/assets/documents/';
+        $fileExist = $public_path . '/assets/documents/' . $id_document . '.pdf';
+
+        if (file_exists($fileExist)) {
+            unlink($fileExist);
+            $request->file_add->move($path, $file);
+        } else {
+            $request->file_add->move($path, $file);
+        }
+
+        Document::where('id', $id_document)
+                ->update([
+                    'lien_numerisation' => $fileExist,
+                    'updated_at' => new \DateTimeImmutable,
+                ]);
+
+        //Notification
+        $url = route('app_document', ['id_site' => $request->input('id_site'), 'id_room' => $request->input('id_room')]);
+        $description = "dashboard.updated_a_document";
+        NotificationRepo::setNotification($description, $url);
+
+        return response()->json([
+            'status' => "success",
+            'code' => 200
+        ]);
     }
 }

@@ -40,7 +40,9 @@ class RoomController extends Controller
         $room = Room::where('id', $id_room)->first();
         $site = Site::where('id', $id_site)->first();
 
-        return view('room.add_room', compact('room', 'site'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('room.add_room', compact('room', 'site', 'iSpermission'));
     }
 
     public function save_room(CreateRoomForm $request)

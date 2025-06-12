@@ -8,7 +8,9 @@ use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Js;
 
 class ArmoireController extends Controller
@@ -61,7 +63,9 @@ class ArmoireController extends Controller
             }));
         //}
 
-        return view('armoire.armoire', compact('site', 'room', 'armoires', 'armoiresJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('armoire.armoire', compact('site', 'room', 'armoires', 'armoiresJson', 'iSpermission'));
     }
 
     public function add_armoire($id_site, $id_room, $id_armoire)
@@ -77,7 +81,9 @@ class ArmoireController extends Controller
             $etageres = Etagere::where('armoire_id', $armoire->id)->get();
         }
 
-        return view('armoire.add_armoire', compact('site', 'room', 'armoire', 'etageres'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('armoire.add_armoire', compact('site', 'room', 'armoire', 'etageres', 'iSpermission'));
     }
 
     public function save_armoire(CreateArmoireForm $request)

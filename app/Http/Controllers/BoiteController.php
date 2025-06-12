@@ -9,7 +9,9 @@ use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Js;
 
 class BoiteController extends Controller
@@ -42,7 +44,9 @@ class BoiteController extends Controller
             ];
         }));
 
-        return view('boite.boite', compact('site', 'room', 'boites', 'boitesJson'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('boite.boite', compact('site', 'room', 'boites', 'boitesJson', 'iSpermission'));
     }
 
     public function add_boite($id_site, $id_room, $id_boite)
@@ -63,7 +67,9 @@ class BoiteController extends Controller
             $classeurs = Classeur::where('boite_id', $boite->id)->get();
         }
 
-        return view('boite.add_boite', compact('site', 'room', 'boite', 'etageres', 'classeurs'));
+        $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
+
+        return view('boite.add_boite', compact('site', 'room', 'boite', 'etageres', 'classeurs', 'iSpermission'));
     }
 
     public function save_boite(CreateBoiteForm $request)

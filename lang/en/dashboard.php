@@ -195,4 +195,14 @@ return [
     'please_select_the_folder' => "Please select the folder",
     'added_a_document' => "added a document",
     'updated_a_document' =>  "updated a document",
+
+    'upload_a_document' => "Upload a document",
+    'please_select_a_file' => "Please select a file",
+    'file_must_not_exceed' => "File must not exceed",
+    'add_a_file' => "Add a file",
+    'archived_document' => "Archived document",
+    'draft_document' => "Draft document",
+    'document_preview' => "Document preview",
+    'no_preview_available' => "No preview available",
+    'only_PDF_files_are_allowed' => "Only PDF files are allowed",
 ];
