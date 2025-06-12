@@ -17,6 +17,7 @@ class Document extends Model
         'reference',
         'origine',
         'duree_conservation',
+        'detail_duree_conservation',
         'lien_numerisation',
         'context',
         'chemise_id'

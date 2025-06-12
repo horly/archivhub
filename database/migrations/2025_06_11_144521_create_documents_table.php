@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titre', 255);
             $table->string('reference', 255);
             $table->string('origine', 255)->nullable();
-            $table->integer('duree_conservation')->nullable();
+            $table->string('duree_conservation', 255)->nullable();
             $table->text('lien_numerisation')->nullable();
             $table->text('context')->nullable();
             $table->bigInteger('chemise_id')->unsigned()->index();

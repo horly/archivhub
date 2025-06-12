@@ -56,7 +56,7 @@
             </li>
              <li class="sidebar-list">
                 <i class="fa-solid fa-thumbtack"></i>
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link @if(Request::route()->getName() == "app_document" || Request::route()->getName() == "app_add_document") active @endif" href="{{ route('app_document', ['id_site' => $site->id, 'id_room' => $room->id]) }}">
                     <i class="iconly-Document icli stroke-icon"></i>
                     <h6 class="f-w-600">Documents </h6>
                 </a>

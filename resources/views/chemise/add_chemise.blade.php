@@ -130,7 +130,7 @@
                                 <div class="col-sm-9">
                                     <select name="chemise-classeur" id="chemise-classeur" class="form-select @error('chemise-classeur') is-invalid @enderror">
                                         @if ($chemise)
-                                            <option value="{{ $chemise->classeur->boite->id }}" selected>
+                                            <option value="{{ $chemise->classeur->id }}" selected>
                                                 {{ __('dashboard.binder') }} : {{ $chemise->classeur->numero }} ({{ $chemise->classeur->description }}) &rarr;
                                                 {{ __('dashboard.box') }} : {{ $chemise->classeur->boite->numero }} ({{ $chemise->classeur->boite->description }}) &rarr;
                                                 {{ __('dashboard.shelve') }} : {{ $chemise->classeur->boite->etagere->numero }} ({{ $chemise->classeur->boite->etagere->description }}) &rarr;
