@@ -84,7 +84,7 @@
                                             </div>
                                             {{ __('dashboard.folder') }} {{ $chemise->numero }}
                                         </div>
-                                        <div class="city-address">{{ $chemise->description }} </div>
+                                        <div class="city-address">{{ str($chemise->description)->limit(32) }} </div>
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-file-lines stat-icon" style="width: 25px"></i>

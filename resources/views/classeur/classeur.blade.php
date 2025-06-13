@@ -84,7 +84,7 @@
                                             </div>
                                             {{ __('dashboard.binder') }} {{ $classeur->numero }}
                                         </div>
-                                        <div class="city-address">{{ $classeur->description }} </div>
+                                        <div class="city-address">{{ str($classeur->description)->limit(32) }} </div>
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-folder stat-icon" style="width: 25px"></i>

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateChemiseForm;
 use App\Models\Boite;
 use App\Models\Chemise;
 use App\Models\Classeur;
+use App\Models\Document;
 use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
@@ -68,9 +69,16 @@ class ChemiseController extends Controller
 
         $chemise = Chemise::where('id', $id_chemise)->first();
 
+        $documents = collect();
+
+        if($chemise)
+        {
+            $documents = Document::where('chemise_id', $chemise->id)->orderBy('id', 'desc')->get();
+        }
+
         $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
 
-        return view('chemise.add_chemise', compact('site', 'room', 'chemise', 'classeurs', 'iSpermission'));
+        return view('chemise.add_chemise', compact('site', 'room', 'chemise', 'classeurs', 'iSpermission', 'documents'));
     }
 
     public function save_chemise(CreateChemiseForm $request)

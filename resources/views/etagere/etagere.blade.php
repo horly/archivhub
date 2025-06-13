@@ -85,7 +85,7 @@
                                             </div>
                                             {{ __('dashboard.shelve') }} {{ $etagere->numero }}
                                         </div>
-                                        <div class="city-address">{{ $etagere->description }} </div>
+                                        <div class="city-address">{{ str($etagere->description)->limit(32) }} </div>
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-box-archive stat-icon" style="width: 25px"></i>

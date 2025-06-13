@@ -77,7 +77,7 @@
                                         </div>
                                         {{ $room->name }}
                                     </div>
-                                    <div class="city-address">{{ $room->description }} </div>
+                                    <div class="city-address">{{ str($room->description)->limit(32) }} </div>
                                     <div class="mb-3">
                                         <div>
                                             <i class="fa-solid fa-boxes-packing stat-icon" style="width: 25px"></i>

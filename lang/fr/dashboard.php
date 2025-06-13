@@ -208,4 +208,7 @@ return [
     'draft' => "Brouillon",
     'archived' => "Archivé",
     'has_deleted_a_document' => "a supprimé un document",
+    'state' => "Etat",
+    'preview' => "Aperçu",
+    'last_update' => "Dernière mise à jour",
 ];

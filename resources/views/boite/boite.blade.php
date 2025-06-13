@@ -84,7 +84,7 @@
                                             </div>
                                             {{ __('dashboard.box') }} {{ $boite->numero }}
                                         </div>
-                                        <div class="city-address">{{ $boite->description }} </div>
+                                        <div class="city-address">{{ str($boite->description)->limit(32) }} </div>
                                         <div class="mb-3">
                                             <div>
                                                 <i class="fa-solid fa-book-open stat-icon" style="width: 25px"></i>

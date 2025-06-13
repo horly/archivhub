@@ -169,6 +169,80 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3 class="mb-4">Documents </h3>
+
+                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                @if ($chemise)
+                                    <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_document', ['id_site' => $site->id, 'id_room' => $room->id, 'id_document' => 0]) }}">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        {{ __('auth.add') }}
+                                    </a>
+                                @endif
+                            @endif
+
+                            <table class="display" id="basic-2">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>{{ __('dashboard.title') }} </th>
+                                        <th>{{ __('dashboard.reference') }} </th>
+                                        <th>Source </th>
+                                        <th>{{ __('dashboard.state') }} </th>
+                                        <th>{{ __('dashboard.preview') }} </th>
+                                        <th>{{ __('dashboard.last_update') }} </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($documents as $document)
+                                        {{-- Modal aperçu document --}}
+                                        @include('document.document-modal')
+                                        <tr>
+                                            <td>{{ $loop->iteration }} </td>
+                                            <td>{{ str($document->titre)->limit(30) }} </td>
+                                            <td>{{ str($document->reference)->limit(30) }} </td>
+                                            <td>{{ $document->origine }} </td>
+                                            <td>
+                                                @php
+                                                    $isDraft = $document->lien_numerisation ? "false" : "true";
+                                                @endphp
+                                                <span class="badge rounded-pill {{ $isDraft === 'false' ? 'badge-light-success' : 'badge-light-warning' }}">
+                                                    <span class="d-flex">
+                                                        <span class="ms-1">{{ $isDraft === 'false' ? __('dashboard.archived') : __('dashboard.draft') }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td class="action">
+                                                @if ($isDraft === 'false')
+                                                    <a href="#" class="pdf" data-bs-toggle="modal" data-bs-target="#overview-document-{{ $document->id }}"><i class="fa-regular fa-file-pdf"> </i></a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge rounded-pill badge-light-primary">
+                                                    <span class="d-flex">
+                                                        <span class="ms-1">{{ Carbon\Carbon::parse($document->updated_at)->ago() }}</span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                    <ul class="action">
+                                                        <li class="edit">
+                                                            <a href="{{ route('app_add_document', ['id_site' => $site->id, 'id_room' => $room->id, 'id_document' => $document->id]) }}"><i class="icon-pencil-alt"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>

@@ -208,4 +208,7 @@ return [
     'draft' => "Draft",
     'archived' => "Archived",
     'has_deleted_a_document' => "has deleted a document",
+    'state' => "State",
+    'preview' => "Preview",
+    'last_update' => "Last update",
 ];

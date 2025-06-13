@@ -31,77 +31,82 @@
 
                 <div class="card border">
                     <div class="card-body">
+                        <div class="container-fluid general-widget">
+                            <div class="row">
 
-                        <div class="row mb-5">
-                            <!-- Site Card -->
-                            <div class="col-md-3 col-sm-6">
-                                <div class="stat-card border">
-                                    <div class="stat-title">
-                                        <div class="icon-circle icon-sites">
-                                            <i class="fa-solid fa-city"></i>
+                                <div class="col-sm-6 col-xl-3 box-col-6">
+                                    <div class="card widget-1 border">
+                                        <div class="card-body">
+                                            <div class="widget-content">
+                                                <div class="widget-round secondary">
+                                                    <div class="bg-round">
+                                                        <i class="fa-solid fa-city text-secondary"></i>
+                                                    </div>
+                                                </div>
+                                            <div>
+                                                <h4>{{ number_format($sitesCount, 0, '', ' ') }} </h4><span class="f-light">Sites </span>
+                                            </div>
+                                            </div>
+                                            {{--<div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>{{ number_format($sitesThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}</span></div>--}}
                                         </div>
-                                        Sites
-                                    </div>
-                                    <div class="stat-value">{{ number_format($sitesCount, 0, '', ' ') }} </div>
-                                    <div class="stat-change">
-                                        <i class="fas fa-arrow-up"></i>
-                                        {{ number_format($sitesThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Locaux Card -->
-                            <div class="col-md-3 col-sm-6">
-                                <div class="stat-card border">
-                                    <div class="stat-title">
-                                        <div class="icon-circle icon-locaux">
-                                            <i class="fas fa-door-open"></i>
+                                <div class="col-sm-6 col-xl-3 box-col-6">
+                                    <div class="card widget-1 border">
+                                        <div class="card-body">
+                                            <div class="widget-content">
+                                                <div class="widget-round primary">
+                                                    <div class="bg-round">
+                                                        <i class="fas fa-door-open text-primary"></i>
+                                                    </div>
+                                                </div>
+                                            <div>
+                                                <h4>{{ number_format($roomsCount, 0, '', ' ') }}</h4><span class="f-light">{{ __('dashboard.rooms') }} </span>
+                                            </div>
+                                            </div>
+                                            {{--<div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>{{ number_format($roomsThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}</span></div>--}}
                                         </div>
-                                        {{ __('dashboard.rooms') }}
-                                    </div>
-                                    <div class="stat-value">{{ number_format($roomsCount, 0, '', ' ') }} </div>
-                                    <div class="stat-change">
-                                        <i class="fas fa-arrow-up"></i>
-                                        {{ number_format($roomsThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Boîtes Card -->
-                            <div class="col-md-3 col-sm-6">
-                                <div class="stat-card border">
-                                    <div class="stat-title">
-                                        <div class="icon-circle icon-boites">
-                                            <i class="fa-solid fa-box-archive"></i>
+                                <div class="col-sm-6 col-xl-3 box-col-6">
+                                    <div class="card widget-1 border">
+                                        <div class="card-body">
+                                            <div class="widget-content">
+                                                <div class="widget-round secondary">
+                                                    <div class="bg-round">
+                                                        <i class="fa-solid fa-box-archive text-secondary"></i>
+                                                    </div>
+                                                </div>
+                                            <div>
+                                                <h4>{{ number_format($boxesCount, 0, '', ' ') }}</h4><span class="f-light">{{ __('dashboard.boxes') }} </span>
+                                            </div>
+                                            </div>
+                                            {{--<div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>{{ number_format($boxesThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}</span></div>--}}
                                         </div>
-                                        {{ __('dashboard.boxes') }}
-                                    </div>
-                                    <div class="stat-value">{{ number_format($boxesCount, 0, '', ' ') }}</div>
-                                    <div class="stat-change">
-                                        <i class="fas fa-arrow-up"></i>
-                                        {{ number_format($boxesThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Documents Card -->
-                            <div class="col-md-3 col-sm-6">
-                                <div class="stat-card border">
-                                    <div class="stat-title">
-                                        <div class="icon-circle icon-documents">
-                                            <i class="fas fa-file-alt"></i>
+                                <div class="col-sm-6 col-xl-3 box-col-6">
+                                    <div class="card widget-1 border">
+                                        <div class="card-body">
+                                            <div class="widget-content">
+                                                <div class="widget-round success">
+                                                    <div class="bg-round">
+                                                        <i class="fa-solid fa-file-lines text-success"></i>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4>{{ number_format($documentsCount, 0, '', ' ') }}</h4><span class="f-light">Documents </span>
+                                                </div>
+                                            </div>
+                                            {{--<div class="font-success f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>{{ number_format($documentsThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}--}}</span></div>
                                         </div>
-                                        Documents
-                                    </div>
-                                    <div class="stat-value">{{ number_format($documentsCount, 0, '', ' ') }}</div>
-                                    <div class="stat-change">
-                                        <i class="fas fa-arrow-up"></i>
-                                        {{ number_format($documentsThisMonth, 0, '', ' ') }} {{ __('dashboard.this_month') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="card border">
                             <div class="card-header h3 text-muted">{{ __('dashboard.archive_sites') }} </div>
@@ -152,7 +157,7 @@
                                                         </div>
                                                         {{ $site->name }}
                                                     </div>
-                                                    <div class="city-address">{{ $site->address }}</div>
+                                                    <div class="city-address">{{ str($site->address)->limit(32) }}</div>
                                                     <div class="mb-3">
                                                         <div>
                                                             <i class="fas fa-door-open stat-icon" style="width: 25px"></i>

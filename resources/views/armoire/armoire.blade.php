@@ -88,7 +88,7 @@
                                             </div>
                                             {{ __('dashboard.cabinet') }} {{ $armoire->numero }}
                                         </div>
-                                        <div class="city-address">{{ $armoire->description }} </div>
+                                        <div class="city-address">{{ str($armoire->description)->limit(32) }} </div>
                                         <div class="mb-3">
                                             @php
                                                 $boites = App\Models\Boite::select('boites.*')

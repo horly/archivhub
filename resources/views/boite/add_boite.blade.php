@@ -160,7 +160,7 @@
                             <h3 class="mb-4">{{ __('dashboard.binders') }} </h3>
 
                             @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
-                                @if ($etagere)
+                                @if ($boite)
                                     <a class="btn btn-primary mb-4" role="button" href="{{ route('app_add_classeur', ['id_site' => $site->id, 'id_room' => $room->id, 'id_classeur' => 0]) }}">
                                         <i class="fa-solid fa-circle-plus"></i>
                                         {{ __('auth.add') }}
