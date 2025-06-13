@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateDocumentForm;
+use App\Models\Boite;
 use App\Models\Chemise;
+use App\Models\Classeur;
 use App\Models\Document;
+use App\Models\Etagere;
 use App\Models\Room;
 use App\Models\Site;
 use App\Services\NotificationRepo;
@@ -12,6 +15,7 @@ use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Js;
 
 class DocumentController extends Controller
@@ -29,7 +33,8 @@ class DocumentController extends Controller
                     ->join('etageres', 'etageres.id', '=', 'boites.etagere_id')
                     ->join('armoires', 'armoires.id', '=', 'etageres.armoire_id')
                     ->where('armoires.room_id', $id_room)
-                    ->paginate(8);
+                    ->orderBy('documents.id', 'desc')
+                    ->paginate(18);
 
         $documentsJ = Document::select('documents.*')
                     ->join('chemises', 'chemises.id', '=', 'documents.chemise_id')
@@ -188,5 +193,34 @@ class DocumentController extends Controller
             'status' => "success",
             'code' => 200
         ]);
+    }
+
+    public function delete_document(Request $request)
+    {
+        $document = Document::where('id', $request->input('id_element'))->first();
+        $chemise = Chemise::where('id', $document->chemise_id)->first();
+        $classeur = Classeur::where('id', $chemise->classeur_id)->first();
+        $boite = Boite::where('id', $classeur->boite_id)->first();
+        $etagere = Etagere::where('id', $boite->etagere_id)->first();
+        $room = Room::where('id', $etagere->armoire->room_id)->first();
+        $site = Site::where('id', $room->site_id)->first();
+
+        Document::where('id', $request->input('id_element'))->delete();
+
+        // Sanitize filename
+        $public_path = public_path();
+        $filePath =  $public_path . '/assets/documents/' . $request->input('id_element') . '.pdf';
+
+        if (file_exists($filePath)) {
+                unlink($filePath);
+                //return back()->with('success', 'File deleted!');
+        }
+
+        //Notification
+        $url = route('app_document', ['id_site' => $site->id, 'id_room' => $room->id]);
+        $description = "dashboard.has_deleted_a_document";
+        NotificationRepo::setNotification($description, $url);
+
+        return redirect($url)->with('success', __('dashboard.data_deleted_successfully'));
     }
 }

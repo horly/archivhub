@@ -205,4 +205,7 @@ return [
     'document_preview' => "Prévisualisation du document",
     'no_preview_available' => "Aucun aperçu disponible",
     'only_PDF_files_are_allowed' => "Seuls les fichiers PDF sont autorisés",
+    'draft' => "Brouillon",
+    'archived' => "Archivé",
+    'has_deleted_a_document' => "a supprimé un document",
 ];

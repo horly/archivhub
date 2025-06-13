@@ -74,8 +74,34 @@
                             {{-- <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                         </div>
                     @else
-
+                        <div class="file-content">
+                            <div class="file-manager row">
+                                @foreach ($documents as $document)
+                                    <div class="folder col-md-2 mb-3">
+                                        <a href="{{ route('app_add_document', ['id_site' => $site->id, 'id_room' => $room->id, 'id_document' => $document->id]) }}" class="folder-box folder-box-document">
+                                            <div class="d-block"><i class="fa-solid fa-file-lines text-primary fs-1"></i>
+                                                <div class="mt-3">
+                                                    <h6 class="mb-2 text-muted">{{ str($document->titre)->limit(25) }} </h6>
+                                                    <h6 class="mb-2 text-muted">{{ str($document->reference)->limit(25) }} </h6>
+                                                    @php
+                                                        $isDraft = $document->lien_numerisation ? "false" : "true";
+                                                    @endphp
+                                                    <p>
+                                                        <span class="fw-bold {{ $isDraft === 'false' ? 'text-success' : 'text-warning' }}">{{ $isDraft === 'false' ? __('dashboard.archived') : __('dashboard.draft') }} </span>
+                                                        <span class="pull-right"> <i class="fa-solid fa-clock"></i> {{ Carbon\Carbon::parse($document->updated_at)->ago() }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     @endif
+
+                    <div class="mt-3">
+                        {{ $documents->onEachSide(1)->links() }}
+                    </div>
 
                 </div>
             </div>

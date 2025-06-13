@@ -31,6 +31,9 @@
 
 /** Global **/
 
+body {
+    background-color: #ffffff00 !important;
+}
 .login-social .active {
     background-color: #308e87 !important;
 }
@@ -196,7 +199,7 @@
 }
 
 .city-card {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
@@ -552,4 +555,14 @@ i.stroke-icon {
     .tree-view {
         display: none;
     }
+}
+
+
+.folder-box-document {
+    width: 100% !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05) !important;
+}
+
+.folder-box-document:hover {
+    background: #308e8827 !important;
 }

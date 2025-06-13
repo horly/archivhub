@@ -205,4 +205,7 @@ return [
     'document_preview' => "Document preview",
     'no_preview_available' => "No preview available",
     'only_PDF_files_are_allowed' => "Only PDF files are allowed",
+    'draft' => "Draft",
+    'archived' => "Archived",
+    'has_deleted_a_document' => "has deleted a document",
 ];

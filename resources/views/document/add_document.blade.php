@@ -351,8 +351,8 @@
 <!-- page_datatable-->
 <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
 
- <script src="{{ asset('assets/lib/jqueryForm/jqueryForm.min.js') }}"></script>
+<script src="{{ asset('assets/lib/jqueryForm/jqueryForm.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/custom/document.js') }}"></script>
+<script src="{{ asset('assets/js/custom/document-add.js') }}"></script>
 
 @endsection
