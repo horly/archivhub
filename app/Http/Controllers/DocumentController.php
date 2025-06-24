@@ -6,6 +6,7 @@ use App\Http\Requests\CreateDocumentForm;
 use App\Models\Boite;
 use App\Models\Chemise;
 use App\Models\Classeur;
+use App\Models\Consultation;
 use App\Models\Document;
 use App\Models\Etagere;
 use App\Models\Room;
@@ -221,5 +222,20 @@ class DocumentController extends Controller
         NotificationRepo::setNotification($description, $url);
 
         return redirect($url)->with('success', __('dashboard.data_deleted_successfully'));
+    }
+
+    public function set_doc_consultation(Request $request)
+    {
+        $consultation = Consultation::create([
+            'user_id' => $request->input('id_user'),
+            'document_id' => $request->input('id_document'),
+            'room_id' => $request->input('id_room'),
+        ]);
+
+        return response()->json([
+            'code' => 200,
+            'status' => "success",
+            'consultation' => $consultation
+        ]);
     }
 }

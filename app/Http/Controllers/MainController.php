@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Armoire;
 use App\Models\Chemise;
 use App\Models\Classeur;
+use App\Models\Consultation;
 use App\Models\Document;
 use App\Models\Notification;
 use App\Models\ReadNotif;
@@ -75,6 +76,11 @@ class MainController extends Controller
         $archived = number_format($archivPercentage * 100, 1, '.', ' ');
         $draft = number_format($nonArchivPercentage * 100, 1, '.', ' ');
 
+        $consultations = Consultation::where('room_id', $id_room)
+                             ->orderBy('created_at', 'desc') // ou ->latest()
+                             ->take(6)
+                             ->get();
+
         return view('main.dashboard', compact(
             'site',
             'room',
@@ -85,7 +91,8 @@ class MainController extends Controller
             'documentsArchivCount',
             'documentsNonArchivCount',
             'archived',
-            'draft'));
+            'draft',
+            'consultations'));
     }
 
     public function read_notification(Request $request)

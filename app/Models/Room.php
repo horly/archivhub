@@ -27,4 +27,9 @@ class Room extends Model
     {
         return $this->hasMany('App\Models\Armoire');
     }
+
+    public function consultations()
+    {
+        return $this->hasMany('App\Models\Consultation');
+    }
 }

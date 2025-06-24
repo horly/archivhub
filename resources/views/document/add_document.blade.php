@@ -147,9 +147,9 @@
                                         <ul class="d-flex flex-row files-content mb-3">
                                             <li class="folder-box d-flex align-items-center">
                                                 <div class="d-flex align-items-center files-list">
-                                                    <a href="#" class="flex-shrink-0 file-left" data-bs-toggle="modal" data-bs-target="#overview-document-{{ $document->id }}"><i class="fa-solid fa-file-pdf text-danger fs-4"></i></a>
+                                                    <a href="#" class="flex-shrink-0 file-left" data-bs-toggle="modal" onclick="setConsultation('{{ Auth::user()->id }}', '{{ $document->id }}', '{{ $room->id }}', '{{ csrf_token() }}', '{{ route('app_set_doc_consultation') }}')" data-bs-target="#overview-document-{{ $document->id }}"><i class="fa-solid fa-file-pdf text-danger fs-4"></i></a>
                                                     <div class="flex-grow-1 ms-3">
-                                                    <a href="#" class="f-w-600 h5 text-primary" data-bs-toggle="modal" data-bs-target="#overview-document-{{ $document->id }}">{{ $document->titre . '.pdf' }} </a>
+                                                    <a href="#" class="f-w-600 h5 text-primary" data-bs-toggle="modal" onclick="setConsultation('{{ Auth::user()->id }}', '{{ $document->id }}', '{{ $room->id }}', '{{ csrf_token() }}', '{{ route('app_set_doc_consultation') }}')" data-bs-target="#overview-document-{{ $document->id }}">{{ $document->titre . '.pdf' }} </a>
                                                     <p>{{ Carbon\Carbon::parse($document->updated_at)->ago() }}, {{ $size_human }}</p>
                                                     </div>
                                                 </div>

@@ -111,7 +111,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card pie-card">
                         <div class="card-header card-no-border pb-0">
                             <div class="header-top">
@@ -143,8 +143,47 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-header card-no-border pb-0">
+                            <div class="header-top">
+                                <h3>{{ __('dashboard.last_document_consulations') }} </h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @if ($consultations->isEmpty())
+                                <div class="alert alert-light-dark light alert-dismissible fade show text-dark border-left-wrapper mb-0" role="alert"><i class="fa-solid fa-circle-info"> </i>
+                                    <p class="mb-0">{{ __('dashboard.no_data_available') }}   </p>
+                                    {{-- <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                                </div>
+                            @else
+                                <table class="table table-striped border">
+                                    <thead>
+                                        <th>N°</th>
+                                        <th>Document </th>
+                                        <th>{{ __('auth.user') }} </th>
+                                        <th>{{ __('auth.time_and_date') }} </th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($consultations as $consultation)
+                                            <tr>
+                                                <td>{{ $loop->iteration }} </td>
+                                                <td>{{ str($consultation->document->titre)->limit(30) }} </td>
+                                                <td>{{ $consultation->user->name }} </td>
+                                                <td>
+                                                    <span class="badge rounded-pill badge-light-primary">
+                                                        <span class="d-flex">
+                                                            <span class="ms-1">{{ Carbon\Carbon::parse($consultation->updated_at)->ago() }}</span>
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 

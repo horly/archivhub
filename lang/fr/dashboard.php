@@ -217,4 +217,6 @@ return [
     'archive_status' => "État d'archivage",
     'archived_documents' => "Documents archivés",
     'draft_documents' => "Documents brouillons",
+
+    'last_document_consulations' => "Dernières consultations de documents",
 ];

@@ -217,7 +217,7 @@
                                             </td>
                                             <td class="action">
                                                 @if ($isDraft === 'false')
-                                                    <a href="#" class="pdf" data-bs-toggle="modal" data-bs-target="#overview-document-{{ $document->id }}"><i class="fa-regular fa-file-pdf"> </i></a>
+                                                    <a href="#" class="pdf" data-bs-toggle="modal" onclick="setConsultation('{{ Auth::user()->id }}', '{{ $document->id }}', '{{ $room->id }}', '{{ csrf_token() }}', '{{ route('app_set_doc_consultation') }}')" data-bs-target="#overview-document-{{ $document->id }}"><i class="fa-regular fa-file-pdf"> </i></a>
                                                 @endif
                                             </td>
                                             <td>

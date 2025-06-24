@@ -217,4 +217,6 @@ return [
     'archive_status' => "Archive status",
     'archived_documents' => "Archived documents",
     'draft_documents' => "Draft documents",
+
+    'last_document_consulations' => "Last document consulations",
 ];

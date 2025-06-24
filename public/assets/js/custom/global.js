@@ -150,3 +150,27 @@ $('#save-mgmt-btn').click(function(e){
 
     $('#mgmt-form').submit();
 });
+
+
+function setConsultation(id_user, id_document, id_room, token, url)
+{
+    /* console.log('Id user : ' + id_user +
+            '\nId document : ' + id_document + '\nId room : ' + id_room +
+            '\nToken : ' + token + '\nRoute : ' + url);
+    */
+
+    $.ajax({
+        type : 'post',
+        url : url,
+        data : {
+            '_token' : token,
+            'id_user' : id_user,
+            'id_document' : id_document,
+            'id_room' : id_room
+        },
+        success:function(response)
+        {
+            //console.log(response.consultation);
+        }
+    });
+}

@@ -27,4 +27,9 @@ class Document extends Model
     {
         return $this->belongsTo('App\Models\Chemise', 'chemise_id');
     }
+
+    public function consultations()
+    {
+        return $this->hasMany('App\Models\Consultation');
+    }
 }

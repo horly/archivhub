@@ -149,7 +149,7 @@ Route::controller(DocumentController::class)->group(function(){
         Route::post('/save_document', 'save_document')->name('app_save_document');
         Route::post('/delete_document', 'delete_document')->name('app_delete_document');
         Route::post('/upload_pdf_document', 'upload_pdf_document')->name('app_upload_pdf_document');
-
+        Route::post('/set_doc_consultation', 'set_doc_consultation')->name('app_set_doc_consultation');
     });
 });
 
