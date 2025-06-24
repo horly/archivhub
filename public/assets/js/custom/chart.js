@@ -1,9 +1,12 @@
 (function ($) {
   "use strict";
 
-    const siteDataApex = window.sitesJsonApex || [];
+    const siteDataApex = window.jsonDataApex || [];
     const categories = siteDataApex.map(site => site.name);
     const documentCounts = siteDataApex.map(site => site.document_count);
+
+    //console.log(siteDataApex);
+
 
   // column chart
   var optionscolumnchart = {

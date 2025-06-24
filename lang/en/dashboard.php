@@ -219,4 +219,5 @@ return [
     'draft_documents' => "Draft documents",
 
     'last_document_consulations' => "Last document consulations",
+    'consultation_history' => "Consultation history",
 ];

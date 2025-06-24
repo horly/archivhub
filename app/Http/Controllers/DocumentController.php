@@ -80,10 +80,18 @@ class DocumentController extends Controller
         $filePath = null;
         $fileSize = null;
         $size_human = null;
+        $consultations = collect();
 
         if($document)
         {
             $filePath = public_path('assets/documents/' . $document->id . '.pdf');
+
+            $consultations = Consultation::where([
+                            'room_id' => $id_room,
+                            'document_id' => $document->id
+                            ])
+                            ->orderBy('created_at', 'desc') //
+                            ->get();
 
             if(File::exists($filePath))
             {
@@ -99,7 +107,7 @@ class DocumentController extends Controller
 
         $iSpermission = PermissionService::userHasPermission(Auth::user()->id);
 
-        return view('document.add_document', compact('site', 'room', 'document', 'chemises', 'size_human', 'iSpermission'));
+        return view('document.add_document', compact('site', 'room', 'document', 'chemises', 'size_human', 'iSpermission', 'consultations'));
     }
 
     private function formatSize(int $bytes): string

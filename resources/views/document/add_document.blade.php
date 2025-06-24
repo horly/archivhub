@@ -124,25 +124,38 @@
 
                                         <label for="file-add" class="col-sm-3 col-form-label">{{ __('dashboard.add_a_file') }}</label>
                                         <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <input class="form-control" type="file" id="file-add" name="file_add" accept=".pdf">
-                                                @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="file" id="file-add" name="file_add" accept=".pdf">
+                                                </div>
+                                                <small class="text-danger" id="file-add-error"></small>
+                                            </div>
+
+                                            <div class="progress mb-3" id="zone-progress-bar-purchase" hidden>
+                                                <div class="progress-bar bg-success" role="progressbar" id="progress-bar-purchase" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                            </div>
+
+                                            @if (Auth::user()->role->name === "admin" || Auth::user()->role->name === "superadmin" || $iSpermission === true)
+                                                <div class="float-end">
                                                     <button class="btn btn-primary btn-file" type="submit" id="button-addon2">
                                                         <i class="fa-solid fa-floppy-disk"></i>
+                                                        {{ __('licence.save') }}
                                                     </button>
                                                     <button class="btn btn-primary btn-loading-file d-none" type="button" disabled>
                                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                        {{ __('auth.loading') }}
                                                     </button>
-                                                @endif
-                                            </div>
-                                            <small class="text-danger" id="file-add-error"></small>
+                                                </div>
+                                            @endif
 
-                                            <div class="progress mt-3" id="zone-progress-bar-purchase" hidden>
-                                                <div class="progress-bar bg-success" role="progressbar" id="progress-bar-purchase" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                                            </div>
+
                                         </div>
                                     </form>
+                                </div>
+                            </div>
 
+                            <div class="card border">
+                                <div class="card-body">
                                     @if ($document->lien_numerisation)
                                         <ul class="d-flex flex-row files-content mb-3">
                                             <li class="folder-box d-flex align-items-center">
@@ -159,6 +172,11 @@
                                         <div class="alert alert-light-primary" role="alert">
                                             <p class="text-primary"><i class="fa-solid fa-file-zipper"></i> {{ __('dashboard.archived_document') }}  </p>
                                         </div>
+
+                                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#consultation-modal">
+                                            <i class="fa-solid fa-eye"></i>
+                                            {{ __('dashboard.consultation_history') }}
+                                        </button>
                                     @else
                                         <div class="alert alert-light-warning" role="alert">
                                             <p class="text-warning"><i class="fa-solid fa-file"></i> {{ __('dashboard.draft_document') }}  </p>
@@ -311,6 +329,47 @@
 
 {{-- Modal aperçu document --}}
 @include('document.document-modal')
+
+<!-- Modal -->
+<div class="modal fade" id="consultation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{ __('dashboard.consultation_history') }}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="display" id="basic-2">
+                    <thead>
+                        <th>N°</th>
+                        {{--<th>Document </th>--}}
+                        <th>{{ __('auth.user') }} </th>
+                        <th>Consultation </th>
+                    </thead>
+                    <tbody>
+                        @foreach ($consultations as $consultation)
+                            <tr>
+                                <td>{{ $loop->iteration }} </td>
+                                {{--<td>{{ str($consultation->document->titre)->limit(30) }} </td>--}}
+                                <td>{{ $consultation->user->name }} </td>
+                                <td>
+                                    <span class="badge rounded-pill badge-light-primary">
+                                        <span class="d-flex">
+                                            <span class="ms-1">{{ Carbon\Carbon::parse($consultation->updated_at)->ago() }}</span>
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-circle-xmark"></i> {{ __('dashboard.close') }} </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @include('global.scipt')
 

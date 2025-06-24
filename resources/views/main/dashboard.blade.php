@@ -162,7 +162,7 @@
                                         <th>N°</th>
                                         <th>Document </th>
                                         <th>{{ __('auth.user') }} </th>
-                                        <th>{{ __('auth.time_and_date') }} </th>
+                                        <th>Consultation </th>
                                     </thead>
                                     <tbody>
                                         @foreach ($consultations as $consultation)

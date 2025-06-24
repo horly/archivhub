@@ -219,4 +219,5 @@ return [
     'draft_documents' => "Documents brouillons",
 
     'last_document_consulations' => "Dernières consultations de documents",
+    'consultation_history' => "Historique des consultations",
 ];
