@@ -14,11 +14,18 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SiteController;
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
-    Route::middleware('guest')->group(function(){
+    if (Auth::check()) {
+        // Utilisateur connecté
+        return redirect()->route('app_site');
+    } else {
+        // Invité
         return view('auth.login');
-    });
+    }
 });
+
 
 /** Traduction route */
 Route::get('/lang/{lang}',

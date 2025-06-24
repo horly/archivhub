@@ -206,9 +206,15 @@ return [
     'no_preview_available' => "Aucun aperçu disponible",
     'only_PDF_files_are_allowed' => "Seuls les fichiers PDF sont autorisés",
     'draft' => "Brouillon",
+    'drafts' => "Brouillons",
     'archived' => "Archivé",
+    'archiveds' => "Archivés",
     'has_deleted_a_document' => "a supprimé un document",
     'state' => "Etat",
     'preview' => "Aperçu",
     'last_update' => "Dernière mise à jour",
+
+    'archive_status' => "État d'archivage",
+    'archived_documents' => "Documents archivés",
+    'draft_documents' => "Documents brouillons",
 ];

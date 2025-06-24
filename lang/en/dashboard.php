@@ -206,9 +206,15 @@ return [
     'no_preview_available' => "No preview available",
     'only_PDF_files_are_allowed' => "Only PDF files are allowed",
     'draft' => "Draft",
+    'drafts' => "Drafts",
     'archived' => "Archived",
+    'archiveds' => "Archived",
     'has_deleted_a_document' => "has deleted a document",
     'state' => "State",
     'preview' => "Preview",
     'last_update' => "Last update",
+
+    'archive_status' => "Archive status",
+    'archived_documents' => "Archived documents",
+    'draft_documents' => "Draft documents",
 ];

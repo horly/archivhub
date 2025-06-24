@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h4>10,000</h4><span class="f-light">{{ __('dashboard.cabinets') }} </span>
+                                        <h4>{{ number_format($armoiresCount, 0, '', ' ') }} </h4><span class="f-light">{{ __('dashboard.cabinets') }} </span>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h4>4,200</h4><span class="f-light">{{ __('dashboard.binders') }} </span>
+                                        <h4>{{ number_format($classeursCount, 0, '', ' ') }}</h4><span class="f-light">{{ __('dashboard.binders') }} </span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h4>7000</h4><span class="f-light">{{ __('dashboard.folders') }} </span>
+                                        <h4>{{ number_format($chemisesCount, 0, '', ' ') }}</h4><span class="f-light">{{ __('dashboard.folders') }} </span>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h4>5700</h4><span class="f-light">Documents </span>
+                                        <h4>{{ number_format($documentsCount, 0, '', ' ') }}</h4><span class="f-light">Documents </span>
                                     </div>
                                 </div>
                             </div>
@@ -110,19 +110,73 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card pie-card">
+                        <div class="card-header card-no-border pb-0">
+                            <div class="header-top">
+                                <h3>{{ __('dashboard.archive_status') }} </h3>
+                            </div>
+                        </div>
+                        <div class="card-body revenue-category row">
+                            <div class="col-md-6">
+                                <div class="pie-chart mb-3" id="pie-chart"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="border border-primary rounded border-2 alert-light-primary" role="alert">
+                                    <div class="text-center p-3">
+                                        <i class="fa-solid fa-file-zipper text-center mb-3 fa-3x text-primary"></i>
+                                        <h2 class="mb-3 text-dark">{{ number_format($documentsArchivCount, 0, '', ' ') }}/{{ number_format($documentsCount, 0, '', ' ') }}</h2>
+                                        <p class="text-dark">{{ __('dashboard.archived_documents') }} </p>
+                                    </div>
+                                </div>
+                                <div class="mb-2"></div>
+                                <div class="border border-secondary rounded border-2 alert-light-secondary" role="alert">
+                                    <div class="text-center p-3">
+                                        <i class="fa-solid fa-file text-center mb-3 fa-3x text-secondary"></i>
+                                        <h2 class="mb-3 text-dark">{{ number_format($documentsNonArchivCount, 0, '', ' ') }}/{{ number_format($documentsCount, 0, '', ' ') }}</h2>
+                                        <p class="text-dark">{{ __('dashboard.draft_documents') }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
+
+
 
         </div>
     </div>
 
 </div>
 
+<input type="hidden" id="archiveds" value="{{ __('dashboard.archiveds') }}">
+<input type="hidden" id="drafts" value="{{ __('dashboard.drafts') }}">
 
 @include('global.scipt')
+
+<script>
+    window.archived = {!! $archived !!};
+    window.draft = {!! $draft !!};
+</script>
 
 <!-- sidebar -->
 <script src="{{ asset('assets/js/sidebar.js') }}"></script>
 <!-- scrollbar-->
 <script src="{{ asset('assets/js/scrollbar/simplebar.js') }}"></script>
 <script src="{{ asset('assets/js/scrollbar/custom.js') }}"></script>
+
+<script src="{{ asset('assets/js/chart/morris-chart/prettify.min.js') }}"></script>
+
+<!-- apex-->
+<script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
+
+<script src="{{ asset('assets/js/custom/dashboard.js') }}"></script>
 
 @endsection
