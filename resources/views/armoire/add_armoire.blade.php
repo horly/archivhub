@@ -44,26 +44,28 @@
                         </div>
                         <div class="card-body">
                             <div class="tree-structure">
+
                                 <div class="tree-item">
                                     <div class="d-flex align-items-center">
                                          <i class="fa-solid fa-city tree-icon"></i>
                                         <strong>Site : {{ $site->name }} </strong>
                                     </div>
+                                </div>
 
-                                    <div class="tree-item mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-door-open tree-icon"></i>
-                                            <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
-                                        </div>
-
-                                        <div class="tree-item mt-2">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fas fa-server tree-icon"></i>
-                                                <strong>{{ __('dashboard.cabinet') }} : {{ $armoire ? $armoire->numero : "" }} </strong>
-                                            </div>
-                                        </div>
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-door-open tree-icon"></i>
+                                        <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
                                     </div>
                                 </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-server tree-icon"></i>
+                                        <strong>{{ __('dashboard.cabinet') }} : {{ $armoire ? $armoire->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

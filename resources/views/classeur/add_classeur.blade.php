@@ -48,43 +48,41 @@
                                          <i class="fa-solid fa-city tree-icon"></i>
                                         <strong>Site : {{ $site->name }} </strong>
                                     </div>
+                                </div>
 
-                                    <div class="tree-item mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-door-open tree-icon"></i>
-                                            <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
-                                        </div>
-
-                                        <div class="tree-item mt-2">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fas fa-server tree-icon"></i>
-                                                <strong>{{ __('dashboard.cabinet') }} : {{ $classeur ? $classeur->boite->etagere->armoire->numero : "" }} </strong>
-                                            </div>
-
-                                            <div class="tree-item mt-2">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fa-solid fa-layer-group tree-icon"></i>
-                                                    <strong>{{ __('dashboard.shelve') }} : {{ $classeur ? $classeur->boite->etagere->numero : "" }} </strong>
-                                                </div>
-
-                                                <div class="tree-item mt-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa-solid fa-box-archive tree-icon"></i>
-                                                        <strong>{{ __('dashboard.box') }} : {{ $classeur ? $classeur->boite->numero : "" }} </strong>
-                                                    </div>
-
-                                                    <div class="tree-item mt-2">
-                                                        <div class="d-flex align-items-center">
-                                                            <i class="fa-solid fa-book-open tree-icon"></i>
-                                                            <strong>{{ __('dashboard.binder') }} : {{ $classeur ? $classeur->numero : "" }} </strong>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-door-open tree-icon"></i>
+                                        <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
                                     </div>
+                                </div>
 
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-server tree-icon"></i>
+                                        <strong>{{ __('dashboard.cabinet') }} : {{ $classeur ? $classeur->boite->etagere->armoire->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-layer-group tree-icon"></i>
+                                        <strong>{{ __('dashboard.shelve') }} : {{ $classeur ? $classeur->boite->etagere->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-box-archive tree-icon"></i>
+                                        <strong>{{ __('dashboard.box') }} : {{ $classeur ? $classeur->boite->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-book-open tree-icon"></i>
+                                        <strong>{{ __('dashboard.binder') }} : {{ $classeur ? $classeur->numero : "" }} </strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>

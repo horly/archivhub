@@ -48,50 +48,49 @@
                                          <i class="fa-solid fa-city tree-icon"></i>
                                         <strong>Site : {{ $site->name }} </strong>
                                     </div>
+                                </div>
 
-                                    <div class="tree-item mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-door-open tree-icon"></i>
-                                            <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
-                                        </div>
-
-                                        <div class="tree-item mt-2">
-                                            <div class="d-flex align-items-center">
-                                                <i class="fas fa-server tree-icon"></i>
-                                                <strong>{{ __('dashboard.cabinet') }} : {{ $chemise ? $chemise->classeur->boite->etagere->armoire->numero : "" }} </strong>
-                                            </div>
-
-                                            <div class="tree-item mt-2">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fa-solid fa-layer-group tree-icon"></i>
-                                                    <strong>{{ __('dashboard.shelve') }} : {{ $chemise ? $chemise->classeur->boite->etagere->numero : "" }} </strong>
-                                                </div>
-
-                                                <div class="tree-item mt-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa-solid fa-box-archive tree-icon"></i>
-                                                        <strong>{{ __('dashboard.box') }} : {{ $chemise ? $chemise->classeur->boite->numero : "" }} </strong>
-                                                    </div>
-
-                                                    <div class="tree-item mt-2">
-                                                        <div class="d-flex align-items-center">
-                                                            <i class="fa-solid fa-book-open tree-icon"></i>
-                                                            <strong>{{ __('dashboard.binder') }} : {{ $chemise ? $chemise->classeur->numero : "" }} </strong>
-                                                        </div>
-
-                                                        <div class="tree-item mt-2">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="fa-solid fa-folder tree-icon"></i>
-                                                                <strong>{{ __('dashboard.folder') }} : {{ $chemise ? $chemise->numero : "" }} </strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-door-open tree-icon"></i>
+                                        <strong>{{ __('dashboard.room') }} : {{ $room->name }} </strong>
                                     </div>
+                                </div>
 
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-server tree-icon"></i>
+                                        <strong>{{ __('dashboard.cabinet') }} : {{ $chemise ? $chemise->classeur->boite->etagere->armoire->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-layer-group tree-icon"></i>
+                                        <strong>{{ __('dashboard.shelve') }} : {{ $chemise ? $chemise->classeur->boite->etagere->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-box-archive tree-icon"></i>
+                                        <strong>{{ __('dashboard.box') }} : {{ $chemise ? $chemise->classeur->boite->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-book-open tree-icon"></i>
+                                        <strong>{{ __('dashboard.binder') }} : {{ $chemise ? $chemise->classeur->numero : "" }} </strong>
+                                    </div>
+                                </div>
+
+                                <div class="tree-item mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-folder tree-icon"></i>
+                                        <strong>{{ __('dashboard.folder') }} : {{ $chemise ? $chemise->numero : "" }} </strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
