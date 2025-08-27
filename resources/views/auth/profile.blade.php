@@ -111,6 +111,59 @@
             </div>
         </div>
 
+        <div class="card border">
+            <div class="card-header card-header-licence">
+                <h2><i class="fas fa-key me-2"></i>{{ __('dashboard.license_status') }} </h2>
+                <p class="text-white">{{ __('dashboard.your_license_information') }} </p>
+            </div>
+
+
+            <div class="card-body">
+                <!-- Date de début -->
+                <div class="license-info">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>{{ __('dashboard.start_date') }} </h5>
+                        <p>{{ \Carbon\Carbon::parse($licence->date_debut)->isoFormat('D MMMM YYYY') }} </p>
+                    </div>
+                </div>
+
+                <!-- Date d'expiration -->
+                <div class="license-info">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>{{ __('dashboard.expiration_date') }} </h5>
+                        <p>{{ \Carbon\Carbon::parse($licence->date_expiration)->isoFormat('D MMMM YYYY') }} </p>
+                        <div class="days-counter text-primary"><span>{{ number_format($jours_restant, 0, '', ' ') }} </span> {{ __('dashboard.days_left') }} </div>
+                    </div>
+                </div>
+
+                <!-- Type de licence -->
+                <div class="license-info" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                    <div class="info-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>{{ __('dashboard.license_type') }} </h5>
+                        <p>{{ Str::ucfirst($licence->type_licence) }} </p>
+                    </div>
+                </div>
+
+
+                <!-- Statut de la licence en bas -->
+                <div class="status-container">
+                    <div class="status-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="status-text">{{ __('dashboard.active_license') }} </p>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 

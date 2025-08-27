@@ -220,4 +220,12 @@ return [
 
     'last_document_consulations' => "Last document consulations",
     'consultation_history' => "Consultation history",
+
+    'license_status' => "License status",
+    'your_license_information' => "Your license information",
+    'start_date' => "Start date",
+    'expiration_date' => "Expiration date",
+    'license_type' => "License type",
+    'days_left' => "days left",
+    'active_license' => "Active license",
 ];

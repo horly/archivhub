@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterUserForm;
+use App\Models\Licence;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\NotificationRepo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -140,6 +142,13 @@ class LoginController extends Controller
 
     public function profile()
     {
-        return view('auth.profile');
+        $licence = Licence::first();
+
+        $expiration = Carbon::parse($licence->date_expiration);
+        $now = Carbon::now();
+
+        $jours_restant = max(0, $now->diffInDays($expiration, false));
+
+        return view('auth.profile', compact('licence', 'jours_restant'));
     }
 }

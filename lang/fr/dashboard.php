@@ -220,4 +220,12 @@ return [
 
     'last_document_consulations' => "Dernières consultations de documents",
     'consultation_history' => "Historique des consultations",
+
+    'license_status' => "Etat de la licence",
+    'your_license_information' => "Informations sur votre licence",
+    'start_date' => "Date de début",
+    'expiration_date' => "Date d'expiration",
+    'license_type' => "Type de licence",
+    'days_left' => "jours restants",
+    'active_license' => "Licence active",
 ];
